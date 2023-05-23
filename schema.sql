@@ -20,8 +20,10 @@ drop table delivery cascade;
 -- Table Creation
 ----------------------------------------
 
--- Como é q eu meto zezoca  --
---(IC-1) Customers can only pay for the Sale of an Order they have placed themselves--
+------------------------------------------------------------------------------------------------------------------------------------
+--- As restrições de integridade do modelo Entidade-Associação que não são passíveis de conversão para o modelo relacional são: 
+--- (IC-1) Customers can only pay for the Sale of an Order they have placed themselves 
+------------------------------------------------------------------------------------------------------------------------------------
 
 
 create table customer
