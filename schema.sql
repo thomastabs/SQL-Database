@@ -16,7 +16,7 @@ create table customer
     customer_phone		numeric(9)
     constraint pk_customer primary key(customer_name));
 
-create table branch
+create table teste
    (branch_name 	varchar(80)	not null unique,
     branch_city 	varchar(30)	not null,
     assets 		numeric(16,4)	not null,
