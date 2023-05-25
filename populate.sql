@@ -1,5 +1,9 @@
 DELETE FROM customer;
-    --(...)--
+DELETE FROM orders;
+DELETE FROM sale;
+DELETE FROM product;
+DELETE FROM supplier;
+
 
 insert into customer values (1, 'Adams', 'adams12345@gmail.com',	'Avenida das Bases de Dados',	918138586);
 insert into customer values (2, 'John', 'johnxina@gmail.com',	'Avenida da Interação',	918134543);
@@ -22,4 +26,10 @@ insert into product values (10000003, 'Walkman', 'Sony Walkman, dispositivo de a
 insert into product values (10000004, 'Batatas', 'Saco de batatas irlandesas recem colhidas', 6.90);
 
 insert into supplier values (1100000001, 'Diogo', 'Rua do Cálculo', 10000001, 2023-01-01);
+insert into supplier values (1100000002, 'André', 'Rua da Álgebra', 10000002, 2023-03-06);
+insert into supplier values (1100000003, 'João', 'Rua de FP', 10000003, 2023-02-21);
+insert into supplier values (1100000004, 'Fábio', 'Rua de IAED', 10000004, 2023-08-10);
+
+insert into employee values (1100000001, 'Diogo', 'Rua do Cálculo', 10000001, 2023-01-01);
+
 -- (...) --
