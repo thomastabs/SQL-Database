@@ -1,3 +1,6 @@
+DELETE FROM customer;
+    --(...)--
+
 insert into customer values (1, 'Adams', 'adams12345@gmail.com',	'Avenida das Bases de Dados',	918138586);
 insert into customer values (2, 'John', 'johnxina@gmail.com',	'Avenida da Interação',	918134543);
 insert into customer values (3, 'Bob', 'bob12345@gmail.com',	'Avenida das Probabilidades', 923423452);
