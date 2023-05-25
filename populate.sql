@@ -42,6 +42,11 @@ INSERT INTO employee VALUES (222222222, 987654321, '1995-02-02', 'Mateus');
 INSERT INTO employee VALUES (333333333, 123112323, '1999-04-29', 'Rodrigo');
 INSERT INTO employee VALUES (444444444, 321999872, '1989-01-29', 'Maia');
 
+INSERT INTO department VALUES ('Department 1');
+INSERT INTO department VALUES ('Department 2');
+INSERT INTO department VALUES ('Department 3');
+INSERT INTO department VALUES ('Department 4');
+
 INSERT INTO workplace VALUES ('Rua do Amor Perfeito', 12.345678, -98.765432);
 INSERT INTO workplace VALUES ('Avenida do Ódio Imperfeito', 98.765432, -12.345678);
 INSERT INTO workplace VALUES ('Avenida Candido Oliveira', 76.345678, -48.123432);
@@ -66,10 +71,16 @@ INSERT INTO process VALUES (2, 222222222);
 INSERT INTO process VALUES (3, 333333333);
 INSERT INTO process VALUES (4, 444444444);
 
+INSERT INTO works VALUES (111111111, 'Department 1', 'Rua do Amor Perfeito');
+INSERT INTO works VALUES (222222222, 'Department 2', 'Avenida do Ódio Imperfeito');
+INSERT INTO works VALUES (333333333, 'Department 3', 'Avenida Candido Oliveira');
+INSERT INTO works VALUES (444444444, 'Department 4', 'Rua Ribeiro dos Reis');
+INSERT INTO works VALUES (444444444, 'Department 5', 'Avenida do MrBeast');
+
+INSERT INTO delivery VALUES ('Avenida Candido Oliveira', 1100000001);
+INSERT INTO delivery VALUES ('Rua Ribeiro dos Reis', 1100000002);
+INSERT INTO delivery VALUES ('Avenida do MrBeast', 1100000003);
 
 
 
 
-
-
--- (...) --
