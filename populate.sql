@@ -18,4 +18,5 @@ insert into product values (10000002, 'Detergente', 'Detergente multi usos, tão
 insert into product values (10000003, 'Walkman', 'Sony Walkman, dispositivo de audição de música em cassete de alta qualidade', 300.00);
 insert into product values (10000004, 'Batatas', 'Saco de batatas irlandesas recem colhidas', 6.90);
 
+insert into supplier values (1100000001, 'Diogo', 'Rua do Cálculo', 10000001, 2023-01-01);
 -- (...) --
