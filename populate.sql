@@ -1,20 +1,14 @@
-DELETE FROM customer;
-DELETE FROM orders;
-DELETE FROM sale;
-DELETE FROM product;
-DELETE FROM supplier;
-DELETE FROM employee;
-
+-- Inserting example values into the tables --
 
 INSERT INTO customer VALUES (1, 'Adams', 'adams12345@gmail.com',	'Avenida das Bases de Dados',	918138586);
 INSERT INTO customer VALUES (2, 'John', 'johnxina@gmail.com',	'Avenida da Interação',	918134543);
 INSERT INTO customer VALUES (3, 'Bob', 'bob12345@gmail.com',	'Avenida das Probabilidades', 923423452);
-INSERT INTO customer VALUES (4, 'Steve', 'steve12345@gmail.com',	'Avenida dos Sistemas e Sinais', 91712341);
+INSERT INTO customer VALUES (4, 'Steve', 'steve12345@gmail.com',	'Avenida dos Sistemas e Sinais', 917123411);
 
-INSERT INTO orders VALUES (1, 2023-01-04, 1);
-INSERT INTO orders VALUES (2, 2023-01-10, 2);
-INSERT INTO orders VALUES (3, 2023-01-17, 1);
-INSERT INTO orders VALUES (4, 2023-01-23, 3);
+INSERT INTO orders VALUES (1, '2023-01-04', 1);
+INSERT INTO orders VALUES (2, '2023-01-10', 2);
+INSERT INTO orders VALUES (3, '2023-01-17', 1);
+INSERT INTO orders VALUES (4, '2023-01-23', 3);
 
 INSERT INTO sale VALUES (1);
 INSERT INTO sale VALUES (2);
@@ -30,12 +24,12 @@ INSERT INTO ean_product VALUES (10000003, '1234567890123');
 INSERT INTO ean_product VALUES (10000004, '9876543219876');
 
 -- Suppliers normais --
-INSERT INTO supplier VALUES (1100000001, 'Diogo', 'Rua do Cálculo', 10000001, 2023-01-01);
-INSERT INTO supplier VALUES (1100000002, 'André', 'Rua da Álgebra', 10000002, 2023-03-06);
+INSERT INTO supplier VALUES (200000001, 'Diogo', 'Rua do Cálculo', 10000001, '2023-01-01');
+INSERT INTO supplier VALUES (200000002, 'André', 'Rua da Álgebra', 10000002, '2023-03-06');
 
 -- Suppliers de EAN Products --
-INSERT INTO supplier VALUES (1100000003, 'Jose', 'Rua de MO', 10000003, 2023-02-11);
-INSERT INTO supplier VALUES (1100000004, 'Tiago', 'Rua de EO', 10000004, 2023-09-11);
+INSERT INTO supplier VALUES (200000003, 'Jose', 'Rua de MO', 10000003, '2023-02-11');
+INSERT INTO supplier VALUES (200000004, 'Tiago', 'Rua de EO', 10000004, '2023-09-11');
 
 INSERT INTO employee VALUES (111111111, 123456789, '1990-01-01', 'Tomás');
 INSERT INTO employee VALUES (222222222, 987654321, '1995-02-02', 'Mateus');
@@ -46,6 +40,7 @@ INSERT INTO department VALUES ('Department 1');
 INSERT INTO department VALUES ('Department 2');
 INSERT INTO department VALUES ('Department 3');
 INSERT INTO department VALUES ('Department 4');
+INSERT INTO department VALUES ('Department 5');
 
 INSERT INTO workplace VALUES ('Rua do Amor Perfeito', 12.345678, -98.765432);
 INSERT INTO workplace VALUES ('Avenida do Ódio Imperfeito', 98.765432, -12.345678);
@@ -77,9 +72,9 @@ INSERT INTO works VALUES (333333333, 'Department 3', 'Avenida Candido Oliveira')
 INSERT INTO works VALUES (444444444, 'Department 4', 'Rua Ribeiro dos Reis');
 INSERT INTO works VALUES (444444444, 'Department 5', 'Avenida do MrBeast');
 
-INSERT INTO delivery VALUES ('Avenida Candido Oliveira', 1100000001);
-INSERT INTO delivery VALUES ('Rua Ribeiro dos Reis', 1100000002);
-INSERT INTO delivery VALUES ('Avenida do MrBeast', 1100000003);
+INSERT INTO delivery VALUES ('Avenida Candido Oliveira', 200000001);
+INSERT INTO delivery VALUES ('Rua Ribeiro dos Reis', 200000002);
+INSERT INTO delivery VALUES ('Avenida do MrBeast', 200000003);
 
 
 

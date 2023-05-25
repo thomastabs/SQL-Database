@@ -47,7 +47,7 @@ CREATE TABLE product
    (sku VARCHAR(8) NOT NULL,
     name VARCHAR(80) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    price NUMERIC(4,2) NOT NULL,
+    price DECIMAL(6,2) NOT NULL,
     PRIMARY KEY (sku),
     -- A product’s price must always be positive --
     CHECK (price > 0));
@@ -136,7 +136,7 @@ CREATE TABLE works
 
 CREATE TABLE delivery
    (address VARCHAR(30) NOT NULL,
-    tin numeric(9) NOT NULL,
+    tin NUMERIC(9) NOT NULL,
     PRIMARY KEY (address, tin),
     FOREIGN KEY (address) REFERENCES warehouse(address),
     FOREIGN KEY (tin) REFERENCES supplier(tin));
