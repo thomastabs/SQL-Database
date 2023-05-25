@@ -20,7 +20,6 @@ FROM employee
         SELECT office.address FROM office);
 
 
-
 ----- EXERCICIO 3 -----
 SELECT name
 FROM sale NATURAL JOIN containss NATURAL JOIN product
