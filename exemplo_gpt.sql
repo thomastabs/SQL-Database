@@ -1,4 +1,4 @@
--- IGNORE: Exemplo do Chat GPT --
+-- IGNORE: Exemplo do Chat GPT  --
 
 -- Insert values into customer table
 INSERT INTO customer (number, name, email, address, phone)
