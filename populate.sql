@@ -6,7 +6,7 @@ INSERT INTO customer VALUES (3, 'Bob', 'bob12345@gmail.com',	'Avenida das Probab
 INSERT INTO customer VALUES (4, 'Steve', 'steve12345@gmail.com',	'Avenida dos Sistemas e Sinais', 917123411);
 
 INSERT INTO orders VALUES (1, '2023-01-04', 1);
-INSERT INTO orders VALUES (2, '2023-01-10', 2);
+INSERT INTO orders VALUES (2, '2023-02-10', 2);
 INSERT INTO orders VALUES (3, '2023-01-17', 1);
 INSERT INTO orders VALUES (4, '2023-01-23', 3);
 
@@ -40,7 +40,6 @@ INSERT INTO department VALUES ('Department 1');
 INSERT INTO department VALUES ('Department 2');
 INSERT INTO department VALUES ('Department 3');
 INSERT INTO department VALUES ('Department 4');
-INSERT INTO department VALUES ('Department 5');
 
 INSERT INTO workplace VALUES ('Rua do Amor Perfeito', 12.345678, -98.765432);
 INSERT INTO workplace VALUES ('Avenida do Ódio Imperfeito', 98.765432, -12.345678);
@@ -69,8 +68,7 @@ INSERT INTO process VALUES (4, 444444444);
 INSERT INTO works VALUES (111111111, 'Department 1', 'Rua do Amor Perfeito');
 INSERT INTO works VALUES (222222222, 'Department 2', 'Avenida do Ódio Imperfeito');
 INSERT INTO works VALUES (333333333, 'Department 3', 'Avenida Candido Oliveira');
-INSERT INTO works VALUES (444444444, 'Department 4', 'Rua Ribeiro dos Reis');
-INSERT INTO works VALUES (444444444, 'Department 5', 'Avenida do MrBeast');
+INSERT INTO works VALUES (444444444, 'Department 4', 'Avenida do MrBeast');
 
 INSERT INTO delivery VALUES ('Avenida Candido Oliveira', 200000001);
 INSERT INTO delivery VALUES ('Rua Ribeiro dos Reis', 200000002);

@@ -1,41 +1,39 @@
 ----- EXERCICIO 1 -----
 SELECT customer.name
 FROM customer
-    NATURAL JOIN orders
-    NATURAL JOIN containss
-    FULL OUTER JOIN product ON product.sku = containss.sku
-WHERE orders.date > '2022-12-31' AND orders.date < '2024-01-01' AND product.price > 50;
+    JOIN orders o ON customer.number = o.customer_number
+    NATURAL JOIN contains
+    JOIN product p ON contains.sku = p.sku
+WHERE p.price > 50 AND o.date > '2022-12-31' AND o.date < '2024-01-01';
 
 ----- EXERCICIO 2 -----
 
 SELECT DISTINCT employee.name
 FROM employee
-    NATURAL JOIN (
-        SELECT *
-        FROM orders
-        WHERE orders.date > '2022-12-31' AND orders.date < '2023-02-01'
-    ) as od
     NATURAL JOIN process
-    FULL OUTER JOIN works ON works.ssn = employee.ssn
+    JOIN orders o ON process.order_num = o.order_num
+    JOIN works w ON w.ssn = employee.ssn
     NATURAL JOIN warehouse
-    WHERE address NOT IN(
-        SELECT address
-        FROM office
-    );
+WHERE address NOT IN(
+    SELECT address
+    FROM office
+) AND o.date > '2022-12-31' AND o.date < '2023-02-01';
 
 
 ----- EXERCICIO 3 -----
 SELECT name
-FROM product NATURAL JOIN containss NATURAL JOIN sale
+FROM product NATURAL JOIN contains NATURAL JOIN sale
+GROUP BY name
 HAVING SUM(qty) >= ALL (
     SELECT SUM(qty)
-    FROM containss
+    FROM contains
+    GROUP BY sku
 )
 LIMIT 1;
 
 ----- EXERCICIO 4 -----
-SELECT order_num, SUM(product.price * containss.qty) AS total_value
-FROM sale NATURAL JOIN containss NATURAL JOIN product
+SELECT order_num, SUM(product.price * contains.qty) AS total_value
+FROM sale NATURAL JOIN contains NATURAL JOIN product
 GROUP BY order_num
 ORDER BY order_num;
 
