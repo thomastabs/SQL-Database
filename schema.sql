@@ -53,8 +53,7 @@ CREATE TABLE product
     CHECK (price > 0));
     -- IC-2: Every product (sku) must participate in the supply entity --
 
--- Contains table name is called containss with 2 s's because of the keyword contain --
-CREATE TABLE containss
+CREATE TABLE contains
    (order_num INTEGER NOT NULL,
     sku VARCHAR(8) NOT NULL,
     qty INTEGER NOT NULL,
