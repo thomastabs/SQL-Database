@@ -76,7 +76,11 @@ INSERT INTO delivery VALUES ('Avenida Candido Oliveira', 200000001);
 INSERT INTO delivery VALUES ('Rua Ribeiro dos Reis', 200000002);
 INSERT INTO delivery VALUES ('Avenida do MrBeast', 200000003);
 
-INSERT INTO contains VALUES
-
+INSERT INTO contains VALUES (1, 10000001, 3);
+INSERT INTO contains VALUES (1, 10000002, 5);
+INSERT INTO contains VALUES (2, 10000003, 1);
+INSERT INTO contains VALUES (3, 10000001, 2);
+INSERT INTO contains VALUES (4, 10000004, 2);
+INSERT INTO contains VALUES (4, 10000002, 1);
 
 
