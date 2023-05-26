@@ -30,10 +30,12 @@ FROM product NATURAL JOIN containss NATURAL JOIN sale
 HAVING SUM(qty) >= ALL (
     SELECT SUM(qty)
     FROM containss
-);
+)
+LIMIT 1;
 
 ----- EXERCICIO 4 -----
 SELECT order_num, SUM(product.price * containss.qty) AS total_value
 FROM sale NATURAL JOIN containss NATURAL JOIN product
-GROUP BY order_num;
+GROUP BY order_num
+ORDER BY order_num;
 
