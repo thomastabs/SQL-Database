@@ -12,7 +12,7 @@ WHERE p.price > 50 AND o.date > '2022-12-31' AND o.date < '2024-01-01';
 -- A ← σdate>”31−12−2022” ∧ date<”1−2−2023”(order ▷◁ process ▷◁ employee)
 -- Πname(A ▷◁ ρname→namework(works) ▷◁ (warehouse − office))
 
-SELECT DISTINCT employee.name
+SELECT employee.name
 FROM employee
     NATURAL JOIN process
     JOIN orders o ON process.order_num = o.order_num
@@ -36,8 +36,7 @@ HAVING SUM(qty) >= ALL (
     SELECT SUM(qty)
     FROM contains
     GROUP BY sku
-)
-LIMIT 1;
+);
 
 -- EXERCICIO 4
 -- order_noGsum(total value)(Πorder_no,price×qty→total_value(sale ▷◁ contains ▷◁ product))
