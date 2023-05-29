@@ -1,0 +1,32 @@
+Output do Exercício 1:
+
+ name
+------
+ John
+(1 row)
+
+Output do Exercício 2:
+
+  name
+---------
+ Rodrigo
+(1 row)
+
+Output do Exercicio 3:
+
+    name
+------------
+ Detergente
+(1 row)
+
+Output do Exercício 4:
+
+ order_num | total_value
+-----------+-------------
+         1 |       60.60
+         2 |      300.00
+         3 |        8.40
+         4 |       23.40
+(4 rows)
+
+
