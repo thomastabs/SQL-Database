@@ -30,7 +30,7 @@ CREATE TABLE order (
 
 CREATE TABLE pay(
     order_no INTEGER PRIMARY KEY REFERENCES order,
-    cust_no INTEGER NOT NULL REFERENCES customer,
+    cust_no INTEGER NOT NULL REFERENCES customer
 );
 
 CREATE TABLE employee(
