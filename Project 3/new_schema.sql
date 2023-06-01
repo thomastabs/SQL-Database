@@ -21,7 +21,7 @@ CREATE TABLE customer (
     address VARCHAR(255)
 );
 
-CREATE TABLE order (
+CREATE TABLE orders (
     order_no INTEGER PRIMARY KEY,
     cust_no INTEGER NOT NULL REFERENCES customer,
     date DATE NOT NULL
@@ -29,7 +29,7 @@ CREATE TABLE order (
 );
 
 CREATE TABLE pay(
-    order_no INTEGER PRIMARY KEY REFERENCES order,
+    order_no INTEGER PRIMARY KEY REFERENCES orders,
     cust_no INTEGER NOT NULL REFERENCES customer
 );
 
