@@ -1,12 +1,11 @@
 ------- QUERY 1 -------
-SELECT customer_number, name
-FROM customer
-    JOIN pay p on customer.number = p.customer_number
-    JOIN contains c on p.order_num = c.order_num
-    JOIN product p2 on p2.sku = c.sku
+SELECT customer_number, customer.name
+FROM customer NATURAL JOIN pay NATURAL JOIN contains
+    JOIN product p on p.sku = contains.sku
+GROUP BY customer_number, customer.name
 HAVING SUM(price * qty) >= ALL (
-    SELECT SUM(price * qty) AS total_value
-    FROM contains NATURAL JOIN product NATURAL JOIN pay
+    SELECT SUM(price * qty)
+    FROM pay NATURAL JOIN product NATURAL JOIN contains
     GROUP BY customer_number
 );
 
