@@ -1,7 +1,7 @@
 def customers():
     for line in open("customers.csv", "r"):
         customer = line.strip().split(",")
-        ins = "INSERT INTO product VALUES ('{}', '{}', '{}', '{}', '{}');\n".format(customer[0], customer[1],
+        ins = "INSERT INTO customer VALUES ('{}', '{}', '{}', '{}', '{}');\n".format(customer[0], customer[1],
                                                                                     customer[2], customer[3],
                                                                                     customer[4])
         file.write(ins)
