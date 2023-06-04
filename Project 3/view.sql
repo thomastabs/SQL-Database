@@ -10,7 +10,7 @@ SELECT
             EXTRACT(MONTH from date) AS month,
             EXTRACT(DAY from date) AS day_of_month,
             EXTRACT(DOW from date) AS day_of_week,
-            SUBSTRING() AS city
+            SUBSTRING(address FROM REGEXP_MATCHES(address, '([0-9]) ([[:alpha:]]+)')[2]) AS city
 FROM (customer NATURAL JOIN pay NATURAL JOIN orders NATURAL JOIN contains) AS A JOIN product on A.sku = product.sku
 GROUP BY sku;
 
