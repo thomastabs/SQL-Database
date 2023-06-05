@@ -46,4 +46,32 @@ INSERT INTO employee VALUES ('777777777', '666666664', '1993-10-08', 'Nelson');
 INSERT INTO employee VALUES ('888888888', '232324444', '1994-06-09', 'Isabel');
 INSERT INTO employee VALUES ('999999999', '111111144', '1995-07-12', 'Gonçalo');
 INSERT INTO employee VALUES ('100000000', '555444777', '1996-09-21', 'João');
+INSERT INTO employee VALUES ('100111111', '565656565', '1997-11-01', 'Vicente');
+INSERT INTO employee VALUES ('100222222', '000999000', '1998-05-08', 'Amadeu');
+INSERT INTO employee VALUES ('100333333', '777777773', '1999-02-09', 'Maria');
+INSERT INTO employee VALUES ('100444444', '111222233', '2000-03-10', 'Alice');
+INSERT INTO employee VALUES ('100555555', '088887700', '2001-07-15', 'Joana');
+
+INSERT INTO employee VALUES ('1', '111111111');
+INSERT INTO employee VALUES ('2', '222222222');
+INSERT INTO employee VALUES ('3', '333333333');
+INSERT INTO employee VALUES ('4', '444444444');
+INSERT INTO employee VALUES ('5', '555555555');
+INSERT INTO employee VALUES ('6', '666666666');
+INSERT INTO employee VALUES ('7', '777777777');
+INSERT INTO employee VALUES ('8', '888888888');
+INSERT INTO employee VALUES ('9', '999999999');
+INSERT INTO employee VALUES ('10', '100000000');
+INSERT INTO employee VALUES ('11', '100111111');
+INSERT INTO employee VALUES ('12', '100222222');
+INSERT INTO employee VALUES ('13', '100333333');
+INSERT INTO employee VALUES ('14', '100444444');
+INSERT INTO employee VALUES ('15', '100555555');
+
+INSERT INTO workplace VALUES ('Rua Amor Perfeito 2745-766 Queluz', '38.736946', '-9.142685');
+INSERT INTO workplace VALUES ('Praceta Columbano Bordalo Pinheiro T 2745-258 Queluz', '98.765432', '-12.345678');
+INSERT INTO workplace VALUES ('Avenida Candido Oliveira 2725-178 Algueirão-Mem Martins', '76.345678', '-48.123432');
+INSERT INTO workplace VALUES ('Rua Ribeiro dos Reis 2725-175 Algueirão-Mem Martins', '91.432432', '-19.367688');
+INSERT INTO workplace VALUES ('Rua Domingos da Cunha 2725-079 Algueirão-Mem Martins', '21.476542', '-65.456987');
+INSERT INTO workplace VALUES ('Rua dos Lírios 2725-368 Algueirão-Mem Martins', '100.234221', '-23.234388');
 
