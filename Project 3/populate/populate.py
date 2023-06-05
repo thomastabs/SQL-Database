@@ -1,3 +1,8 @@
+# Script de Python para fazer o populate
+def copia_anexo_a():
+    for line in open("anexo_a.sql"):
+        file.write(line)
+
 def customers():
     for line in open("customers.csv", "r"):
         customer = line.strip().split(",")
@@ -71,11 +76,46 @@ def warehouses():
         file.write(ins)
 
 
-def
+def works():
+    for line in open("works.csv", "r"):
+        works_in = line.strip().split(",")
+        ins = "INSERT INTO works VALUES ('{}','{}','{}');\n".format(works_in[0], works_in[1], works_in[2])
+        file.write(ins)
+
+
+def suppliers():
+    for line in open("suppliers.csv", "r"):
+        supplier = line.strip().split(",")
+        ins = "INSERT INTO suppliers VALUES ('{}','{}','{}');\n".format(supplier[0], supplier[1], supplier[2])
+        file.write(ins)
+
+
+def deliveries():
+    for line in open("deliveries.csv", "r"):
+        delivery = line.strip().split(",")
+        ins = "INSERT INTO deliveries VALUES ('{}','{}');\n".format(delivery[0], delivery[1])
+        file.write(ins)
+
+
+def contains():
+    for line in open("contains.csv", "r"):
+        contains_in = line.strip().split(",")
+        ins = "INSERT INTO contains VALUES ('{}','{}','{}');\n".format(contains_in[0], contains_in[1], contains_in[2])
+        file.write(ins)
+
+
+def pays():
+    for line in open("pays.csv", "r"):
+        pays_for = line.strip().split(",")
+        ins = "INSERT INTO pays VALUES ('{}','{}');\n".format(pays_for[0], pays_for[1])
+        file.write(ins)
+
 
 if __name__ == "__main__":
     file = open('../populate/populate.sql', 'w')
 
+    copia_anexo_a()
+    file.write('\n')
     products()
     file.write('\n')
     customers()
@@ -86,7 +126,24 @@ if __name__ == "__main__":
     file.write('\n')
     process()
     file.write('\n')
+    departments()
+    file.write('\n')
     workplaces()
     file.write('\n')
+    warehouses()
+    file.write('\n')
+    offices()
+    file.write('\n')
+    works()
+    file.write('\n')
+    suppliers()
+    file.write('\n')
+    deliveries()
+    file.write('\n')
+    contains()
+    file.write('\n')
+    pays()
+    file.write('\n')
+
 
     file.close()
