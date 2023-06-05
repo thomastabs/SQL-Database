@@ -45,7 +45,7 @@ def employees():
 def process():
     for line in open("process.csv", "r"):
         process = line.strip().split(",")
-        ins = "INSERT INTO employee VALUES ('{}', '{}');\n".format(process[0], process[1])
+        ins = "INSERT INTO process VALUES ('{}', '{}');\n".format(process[0], process[1])
         file.write(ins)
 
 
@@ -86,14 +86,14 @@ def works():
 def suppliers():
     for line in open("suppliers.csv", "r"):
         supplier = line.strip().split(",")
-        ins = "INSERT INTO suppliers VALUES ('{}','{}','{}');\n".format(supplier[0], supplier[1], supplier[2])
+        ins = "INSERT INTO supplier VALUES ('{}','{}','{}');\n".format(supplier[0], supplier[1], supplier[2])
         file.write(ins)
 
 
 def deliveries():
     for line in open("deliveries.csv", "r"):
         delivery = line.strip().split(",")
-        ins = "INSERT INTO deliveries VALUES ('{}','{}');\n".format(delivery[0], delivery[1])
+        ins = "INSERT INTO delivery VALUES ('{}','{}');\n".format(delivery[0], delivery[1])
         file.write(ins)
 
 
@@ -107,7 +107,7 @@ def contains():
 def pays():
     for line in open("pays.csv", "r"):
         pays_for = line.strip().split(",")
-        ins = "INSERT INTO pays VALUES ('{}','{}');\n".format(pays_for[0], pays_for[1])
+        ins = "INSERT INTO pay VALUES ('{}','{}');\n".format(pays_for[0], pays_for[1])
         file.write(ins)
 
 
