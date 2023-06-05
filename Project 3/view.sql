@@ -1,18 +1,21 @@
 DROP VIEW IF EXISTS product_sales;
 
-CREATE VIEW product_sales(sku, order_no, qty, total_price, year, month, day_of_month, day_of_week, city) AS
-SELECT
-            sku,
-            order_num,
-            qty,
-            SUM(price * qty) AS total_price,
-            EXTRACT(YEAR from date) AS year,
-            EXTRACT(MONTH from date) AS month,
-            EXTRACT(DAY from date) AS day_of_month,
-            EXTRACT(DOW from date) AS day_of_week,
-            SUBSTRING(address FROM REGEXP_MATCHES(address, '([0-9]) ([[:alpha:]]+)')[2]) AS city
-FROM (customer NATURAL JOIN pay NATURAL JOIN orders NATURAL JOIN contains) AS A JOIN product on A.sku = product.sku
-GROUP BY sku;
+CREATE VIEW product_sales AS
+SELECT c.SKU,
+       c.order_no,
+       c.qty,
+       (c.qty * p.price) AS total_price,
+       EXTRACT(YEAR FROM o.date) AS year,
+       EXTRACT(MONTH FROM o.date) AS month,
+       EXTRACT(DAY FROM o.date) AS day_of_month,
+       EXTRACT(DOW FROM o.date) AS day_of_week,
+       REGEXP_MATCHES(address, '(\d+) ([[:alpha:]]+)', 'g') AS city
+FROM contains c
+JOIN orders o ON c.order_no = o.order_no
+JOIN pay py ON o.order_no = py.order_no
+JOIN product p ON c.SKU = p.SKU
+JOIN customer cu ON o.cust_no = cu.cust_no;
+
 
 
 
