@@ -1,4 +1,8 @@
-CREATE OR REPLACE FUNCTION check_employee_age()
+DROP TRIGGER IF EXISTS ri_1 ON employee;
+DROP TRIGGER IF EXISTS ri_4 ON workplace;
+DROP TRIGGER IF EXISTS ri_5 ON orders;
+
+CREATE OR REPLACE FUNCTION ri_1_proc()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.bdate > CURRENT_DATE - INTERVAL '18 years' THEN
@@ -8,7 +12,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION check_workplace_type()
+CREATE OR REPLACE FUNCTION ri_4_proc()
 RETURNS TRIGGER AS $$
 BEGIN
     IF (NEW.address IN (SELECT address FROM office) AND NEW.address IN (SELECT address FROM warehouse)) OR
@@ -19,7 +23,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION check_order_contains()
+CREATE OR REPLACE FUNCTION ri_5_proc()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NOT EXISTS (
@@ -33,17 +37,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER employee_age_trigger
+CREATE TRIGGER ri_1
 BEFORE INSERT OR UPDATE ON employee
-FOR EACH ROW
-EXECUTE FUNCTION check_employee_age();
+FOR EACH ROW EXECUTE PROCEDURE ri_1_proc();
 
-CREATE TRIGGER workplace_type_trigger
+CREATE TRIGGER ri_4
 BEFORE INSERT OR UPDATE ON workplace
-FOR EACH ROW
-EXECUTE FUNCTION check_workplace_type();
+FOR EACH ROW EXECUTE PROCEDURE ri_4_proc();
 
-CREATE TRIGGER order_contains_trigger
+CREATE TRIGGER ri_5
 BEFORE INSERT OR UPDATE ON orders
-FOR EACH ROW
-EXECUTE FUNCTION check_order_contains();
+FOR EACH ROW EXECUTE PROCEDURE ri_5_proc();
