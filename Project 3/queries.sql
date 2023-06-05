@@ -1,12 +1,14 @@
 ------- QUERY 1 -------
-SELECT c.number, c.name
-FROM customer c JOIN pay p ON c.number = p.customer_number
-GROUP BY c.number, c.name
-HAVING COUNT(p.order_num) >= ALL (
-    SELECT COUNT(p.order_num) FROM pay p
-    GROUP BY p.customer_number
-)
-ORDER BY c.number;
+SELECT customer_number, customer.name
+FROM customer NATURAL JOIN pay NATURAL JOIN contains
+    JOIN product p on p.sku = contains.sku
+WHERE customer_number = customer.number
+GROUP BY customer_number, customer.name
+HAVING SUM(price * qty) >= ALL (
+    SELECT SUM(price * qty)
+    FROM pay NATURAL JOIN product NATURAL JOIN contains
+    GROUP BY customer_number
+);
 
 ------- QUERY 2 -------
 SELECT e.name FROM employee e
