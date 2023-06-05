@@ -1,3 +1,4 @@
+# Script de Python para fazer o populate
 def copia_anexo_a():
     for line in open("anexo_a.sql"):
         file.write(line)
