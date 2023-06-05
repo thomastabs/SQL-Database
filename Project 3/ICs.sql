@@ -29,7 +29,7 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1
         FROM contains
-        WHERE order_num = NEW.order_no
+        WHERE order_num = NEW.order_num
     ) THEN
         RAISE EXCEPTION 'Uma Order deve figurar obrigatoriamente em Contains.';
     END IF;
