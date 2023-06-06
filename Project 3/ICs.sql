@@ -1,5 +1,5 @@
 DROP TRIGGER IF EXISTS ri_1 ON employee;
-DROP TRIGGER IF EXISTS ri_4 ON workplace;
+DROP TRIGGER IF EXISTS ri_4 ON office;
 DROP TRIGGER IF EXISTS ri_5 ON orders;
 
 CREATE OR REPLACE FUNCTION ri_1_proc()
@@ -26,11 +26,11 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION ri_5_proc()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NOT EXISTS (
-        SELECT 1
-        FROM contains
-        WHERE order_no = NEW.order_no
-    ) THEN
+    IF NEW.order_no NOT IN (
+        SELECT order_no
+        FROM orders EXCEPT orders
+    )
+    THEN
         RAISE EXCEPTION 'Uma Order deve figurar obrigatoriamente em Contains.';
     END IF;
     RETURN NEW;
@@ -42,9 +42,9 @@ BEFORE INSERT OR UPDATE ON employee
 FOR EACH ROW EXECUTE PROCEDURE ri_1_proc();
 
 CREATE TRIGGER ri_4
-BEFORE INSERT OR UPDATE ON workplace
+AFTER INSERT OR UPDATE ON office
 FOR EACH ROW EXECUTE PROCEDURE ri_4_proc();
 
 CREATE TRIGGER ri_5
-BEFORE INSERT OR UPDATE ON orders
+AFTER INSERT OR UPDATE ON contains
 FOR EACH ROW EXECUTE PROCEDURE ri_5_proc();
