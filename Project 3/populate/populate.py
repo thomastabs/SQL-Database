@@ -3,11 +3,13 @@ def copia_anexo_a():
     for line in open("anexo_a.sql"):
         file.write(line)
 
+
 def customers():
     for line in open("customers.csv", "r"):
         customer = line.strip().split(",")
-        ins = "INSERT INTO customer VALUES ('{}', '{}', '{}', '{}');\n".format(customer[0], customer[1],
-                                                                               customer[2], customer[3])
+        ins = "INSERT INTO customer VALUES ('{}', '{}', '{}', '{}', '{}');\n".format(customer[0], customer[1],
+                                                                                     customer[2], customer[3],
+                                                                                     customer[4])
         file.write(ins)
 
 
@@ -61,6 +63,7 @@ def departments():
         department = line.strip().split(",")
         ins = "INSERT INTO department VALUES ('{}');\n".format(department[0])
         file.write(ins)
+
 
 def offices():
     for line in open("offices.csv", "r"):
@@ -120,8 +123,19 @@ if __name__ == "__main__":
     file.write('\n')
     customers()
     file.write('\n')
+
+    file.write('START TRANSACTION;\n')
+    file.write('SET CONSTRAINTS ALL DEFERRED;\n')
+    file.write('\n')
+
     orders()
     file.write('\n')
+    contains()
+    file.write('\n')
+
+    file.write("COMMIT;\n")
+    file.write('\n')
+
     employees()
     file.write('\n')
     process()
@@ -140,10 +154,7 @@ if __name__ == "__main__":
     file.write('\n')
     deliveries()
     file.write('\n')
-    contains()
-    file.write('\n')
     pays()
     file.write('\n')
-
 
     file.close()
