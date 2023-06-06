@@ -1,12 +1,12 @@
 DROP TRIGGER IF EXISTS ri_1 ON employee;
-DROP TRIGGER IF EXISTS ri_4 ON office;
+DROP TRIGGER IF EXISTS ri_4 ON workplace;
 DROP TRIGGER IF EXISTS ri_5 ON orders;
 
 CREATE OR REPLACE FUNCTION ri_1_proc()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.bdate > CURRENT_DATE - INTERVAL '18 years' THEN
-        RAISE EXCEPTION 'O empregado deve ter pelo menos 18 anos de idade.';
+        RAISE EXCEPTION 'Nenhum empregado pode ter menos de 18 anos de idade';
     END IF;
     RETURN NEW;
 END;
@@ -28,10 +28,9 @@ RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.order_no NOT IN (
         SELECT order_no
-        FROM orders EXCEPT orders
-    )
-    THEN
-        RAISE EXCEPTION 'Uma Order deve figurar obrigatoriamente em Contains.';
+        FROM contains
+    )THEN
+        RAISE EXCEPTION 'Uma Order tem de figurar obrigatoriamente em Contains.';
     END IF;
     RETURN NEW;
 END;
@@ -41,10 +40,10 @@ CREATE TRIGGER ri_1
 BEFORE INSERT OR UPDATE ON employee
 FOR EACH ROW EXECUTE PROCEDURE ri_1_proc();
 
-CREATE TRIGGER ri_4
-AFTER INSERT OR UPDATE ON office
+CREATE CONSTRAINT TRIGGER ri_4
+AFTER INSERT OR UPDATE ON workplace DEFERRABLE
 FOR EACH ROW EXECUTE PROCEDURE ri_4_proc();
 
-CREATE TRIGGER ri_5
-AFTER INSERT OR UPDATE ON contains
+CREATE CONSTRAINT TRIGGER ri_5
+AFTER INSERT OR UPDATE ON orders DEFERRABLE
 FOR EACH ROW EXECUTE PROCEDURE ri_5_proc();

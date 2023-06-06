@@ -127,6 +127,9 @@ INSERT INTO customer VALUES ('8', 'Will', 'will1234@gmail.com', '911222111');
 INSERT INTO customer VALUES ('9', 'Tyler', 'tyler1234@gmail.com', '920988756');
 INSERT INTO customer VALUES ('10', 'Drake', 'drake1234@gmail.com', '965888232');
 
+START TRANSACTION;
+SET CONSTRAINTS ALL DEFERRED;
+
 INSERT INTO orders VALUES ('1', '1', '2023-01-04');
 INSERT INTO orders VALUES ('2', '2', '2023-02-10');
 INSERT INTO orders VALUES ('3', '1', '2023-01-17');
@@ -143,6 +146,30 @@ INSERT INTO orders VALUES ('13', '10', '2023-07-02');
 INSERT INTO orders VALUES ('14', '2', '2023-11-13');
 INSERT INTO orders VALUES ('15', '1', '2023-09-19');
 
+INSERT INTO contains VALUES ('1','10000001','3');
+INSERT INTO contains VALUES ('1','10000002','5');
+INSERT INTO contains VALUES ('2','10000003','1');
+INSERT INTO contains VALUES ('3','10000001','2');
+INSERT INTO contains VALUES ('4','10000004','2');
+INSERT INTO contains VALUES ('4','10000002','1');
+INSERT INTO contains VALUES ('5','10000005','1');
+INSERT INTO contains VALUES ('6','10000006','2');
+INSERT INTO contains VALUES ('6','10000007','1');
+INSERT INTO contains VALUES ('7','10000008','1');
+INSERT INTO contains VALUES ('7','10000003','2');
+INSERT INTO contains VALUES ('7','10000001','1');
+INSERT INTO contains VALUES ('8','10000008','2');
+INSERT INTO contains VALUES ('9','10000009','2');
+INSERT INTO contains VALUES ('10','10000010','1');
+INSERT INTO contains VALUES ('10','10000008','2');
+INSERT INTO contains VALUES ('11','10000008','2');
+INSERT INTO contains VALUES ('12','10000008','2');
+INSERT INTO contains VALUES ('13','10000008','2');
+INSERT INTO contains VALUES ('14','10000008','2');
+INSERT INTO contains VALUES ('15','10000008','2');
+
+COMMIT;
+
 INSERT INTO employee VALUES ('111111111', '123456789', '1990-01-01', 'Tomás');
 INSERT INTO employee VALUES ('222222222', '987654321', '1995-02-02', 'Mateus');
 INSERT INTO employee VALUES ('333333333', '123112323', '1999-04-29', 'Rodrigo');
@@ -157,7 +184,7 @@ INSERT INTO employee VALUES ('100111111', '565656565', '1997-11-01', 'Vicente');
 INSERT INTO employee VALUES ('100222222', '000999000', '1998-05-08', 'Amadeu');
 INSERT INTO employee VALUES ('100333333', '777777773', '1999-02-09', 'Maria');
 INSERT INTO employee VALUES ('100444444', '111222233', '2000-03-10', 'Alice');
-INSERT INTO employee VALUES ('100555555', '088887700', '2007-07-15', 'Joana');
+INSERT INTO employee VALUES ('100555555', '088887700', '2004-07-15', 'Joana');
 
 INSERT INTO process VALUES ('111111111', '1');
 INSERT INTO process VALUES ('222222222', '2');
@@ -181,6 +208,9 @@ INSERT INTO department VALUES ('Department C');
 INSERT INTO department VALUES ('Department D');
 INSERT INTO department VALUES ('Department E');
 
+START TRANSACTION;
+SET CONSTRAINTS ALL DEFERRED;
+
 INSERT INTO workplace VALUES ('Rua Amor Perfeito 2745-766 Queluz', '38.736946', '-9.142685');
 INSERT INTO workplace VALUES ('Praceta Columbano Bordalo Pinheiro T 2745-258 Queluz', '98.765432', '-12.345678');
 INSERT INTO workplace VALUES ('Avenida Candido Oliveira 2725-178 Algueirão-Mem Martins', '76.345678', '-48.123432');
@@ -195,6 +225,9 @@ INSERT INTO warehouse VALUES ('Avenida Candido Oliveira 2725-178 Algueirão-Mem 
 INSERT INTO office VALUES ('Rua Ribeiro dos Reis 2725-175 Algueirão-Mem Martins');
 INSERT INTO office VALUES ('Rua Domingos da Cunha 2725-079 Algueirão-Mem Martins');
 INSERT INTO office VALUES ('Rua dos Lírios 2725-368 Algueirão-Mem Martins');
+
+COMMIT;
+
 
 INSERT INTO works VALUES ('111111111','Department A','Rua Amor Perfeito 2745-766 Queluz');
 INSERT INTO works VALUES ('222222222','Department B','Praceta Columbano Bordalo Pinheiro T 2745-258 Queluz');
@@ -233,23 +266,6 @@ INSERT INTO delivery VALUES ('Rua Amor Perfeito 2745-766 Queluz','200000007');
 INSERT INTO delivery VALUES ('Praceta Columbano Bordalo Pinheiro T 2745-258 Queluz','200000008');
 INSERT INTO delivery VALUES ('Avenida Candido Oliveira 2725-178 Algueirão-Mem Martins','200000009');
 INSERT INTO delivery VALUES ('Rua Amor Perfeito 2745-766 Queluz','200000010');
-
-INSERT INTO contains VALUES ('1','10000001','3');
-INSERT INTO contains VALUES ('1','10000002','5');
-INSERT INTO contains VALUES ('2','10000003','1');
-INSERT INTO contains VALUES ('3','10000001','2');
-INSERT INTO contains VALUES ('4','10000004','2');
-INSERT INTO contains VALUES ('4','10000002','1');
-INSERT INTO contains VALUES ('5','10000005','1');
-INSERT INTO contains VALUES ('6','10000006','2');
-INSERT INTO contains VALUES ('6','10000007','1');
-INSERT INTO contains VALUES ('7','10000008','1');
-INSERT INTO contains VALUES ('7','10000003','2');
-INSERT INTO contains VALUES ('7','10000001','1');
-INSERT INTO contains VALUES ('8','10000008','2');
-INSERT INTO contains VALUES ('9','10000009','2');
-INSERT INTO contains VALUES ('10','10000010','1');
-INSERT INTO contains VALUES ('10','10000008','2');
 
 INSERT INTO pay VALUES ('1','1');
 INSERT INTO pay VALUES ('2','2');
