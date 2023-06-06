@@ -35,7 +35,7 @@ try:
 
     # Printing the result
     print('<table border=“5”>')
-    for row in result:app
+    for row in result:
         print('<tr>')
         for value in row:
             print(' < td > {} < / td > '.format(value))
