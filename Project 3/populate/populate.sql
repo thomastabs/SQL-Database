@@ -116,16 +116,16 @@ INSERT INTO product VALUES ('10000008', 'Fonte de Alimentação', 'Fonte de Ener
 INSERT INTO product VALUES ('10000009', 'SSD de 500gb', 'Armazenamento SSD de tamanho 500gb', '120', ' 1212');
 INSERT INTO product VALUES ('10000010', '12Gb de RAM', '2 cartões de RAM que juntos fazem 12 GB', '200');
 
-INSERT INTO customer VALUES ('1', 'Adams', 'adams12345@gmail.com', '918138586');
-INSERT INTO customer VALUES ('2', 'John', 'johnxina@gmail.com', '918134543');
-INSERT INTO customer VALUES ('3', 'Bob', 'bob12345@gmail.com', '923423452');
-INSERT INTO customer VALUES ('4', 'Steve', 'steve12345@gmail.com', '917123411');
-INSERT INTO customer VALUES ('5', 'Leon', 'leon1234@gmail.com', '919519439');
-INSERT INTO customer VALUES ('6', 'Ashley', 'ashley1234@gmail.com', '918410660');
-INSERT INTO customer VALUES ('7', 'Thomas', 'thomas1234@gmail.com', '921324777');
-INSERT INTO customer VALUES ('8', 'Will', 'will1234@gmail.com', '911222111');
-INSERT INTO customer VALUES ('9', 'Tyler', 'tyler1234@gmail.com', '920988756');
-INSERT INTO customer VALUES ('10', 'Drake', 'drake1234@gmail.com', '965888232');
+INSERT INTO customer VALUES ('1', 'Adams', 'adams12345@gmail.com', '918138586', 'Rua Ribeiro dos Reis 2725-175 Mem Martins');
+INSERT INTO customer VALUES ('2', 'John', 'johnxina@gmail.com', '918134543', 'Rua João Chagas 1495-765 Oeiras');
+INSERT INTO customer VALUES ('3', 'Bob', 'bob12345@gmail.com', '923423452', 'Rua Combatentes do Ultramar 2670-515 Loures');
+INSERT INTO customer VALUES ('4', 'Steve', 'steve12345@gmail.com', '917123411', 'Rua Brito Capelo 4050-128 Porto');
+INSERT INTO customer VALUES ('5', 'Leon', 'leon1234@gmail.com', '919519439', 'Rua Conde de Valença 7470-120 Sousel');
+INSERT INTO customer VALUES ('6', 'Ashley', 'ashley1234@gmail.com', '918410660', 'Rua Manuel da SIlva Carolino 2460-197 Alcobaça');
+INSERT INTO customer VALUES ('7', 'Thomas', 'thomas1234@gmail.com', '921324777', 'Rua Helena Tavares 2725-059 Mem Martins');
+INSERT INTO customer VALUES ('8', 'Will', 'will1234@gmail.com', '911222111', 'Rua Fernando Peyroteo 2725-079 Algueirão-Mem Martins');
+INSERT INTO customer VALUES ('9', 'Tyler', 'tyler1234@gmail.com', '920988756', 'Praceta Diogo de Silves 2710-725 Sintra');
+INSERT INTO customer VALUES ('10', 'Drake', 'drake1234@gmail.com', '965888232', 'Avenida Raul Solnado 2710-204 Sintra');
 
 START TRANSACTION;
 SET CONSTRAINTS ALL DEFERRED;
@@ -162,11 +162,11 @@ INSERT INTO contains VALUES ('8','10000008','2');
 INSERT INTO contains VALUES ('9','10000009','2');
 INSERT INTO contains VALUES ('10','10000010','1');
 INSERT INTO contains VALUES ('10','10000008','2');
-INSERT INTO contains VALUES ('11','10000008','2');
-INSERT INTO contains VALUES ('12','10000008','2');
-INSERT INTO contains VALUES ('13','10000008','2');
-INSERT INTO contains VALUES ('14','10000008','2');
-INSERT INTO contains VALUES ('15','10000008','2');
+INSERT INTO contains VALUES ('11','10000010','1');
+INSERT INTO contains VALUES ('12','10000001','2');
+INSERT INTO contains VALUES ('13','10000007','2');
+INSERT INTO contains VALUES ('14','10000004','5');
+INSERT INTO contains VALUES ('15','10000005','4');
 
 COMMIT;
 
@@ -184,7 +184,7 @@ INSERT INTO employee VALUES ('100111111', '565656565', '1997-11-01', 'Vicente');
 INSERT INTO employee VALUES ('100222222', '000999000', '1998-05-08', 'Amadeu');
 INSERT INTO employee VALUES ('100333333', '777777773', '1999-02-09', 'Maria');
 INSERT INTO employee VALUES ('100444444', '111222233', '2000-03-10', 'Alice');
-INSERT INTO employee VALUES ('100555555', '088887700', '2004-07-15', 'Joana');
+INSERT INTO employee VALUES ('100555555', '088887700', '2001-07-15', 'Joana');
 
 INSERT INTO process VALUES ('111111111', '1');
 INSERT INTO process VALUES ('222222222', '2');
@@ -208,9 +208,6 @@ INSERT INTO department VALUES ('Department C');
 INSERT INTO department VALUES ('Department D');
 INSERT INTO department VALUES ('Department E');
 
-START TRANSACTION;
-SET CONSTRAINTS ALL DEFERRED;
-
 INSERT INTO workplace VALUES ('Rua Amor Perfeito 2745-766 Queluz', '38.736946', '-9.142685');
 INSERT INTO workplace VALUES ('Praceta Columbano Bordalo Pinheiro T 2745-258 Queluz', '98.765432', '-12.345678');
 INSERT INTO workplace VALUES ('Avenida Candido Oliveira 2725-178 Algueirão-Mem Martins', '76.345678', '-48.123432');
@@ -225,9 +222,6 @@ INSERT INTO warehouse VALUES ('Avenida Candido Oliveira 2725-178 Algueirão-Mem 
 INSERT INTO office VALUES ('Rua Ribeiro dos Reis 2725-175 Algueirão-Mem Martins');
 INSERT INTO office VALUES ('Rua Domingos da Cunha 2725-079 Algueirão-Mem Martins');
 INSERT INTO office VALUES ('Rua dos Lírios 2725-368 Algueirão-Mem Martins');
-
-COMMIT;
-
 
 INSERT INTO works VALUES ('111111111','Department A','Rua Amor Perfeito 2745-766 Queluz');
 INSERT INTO works VALUES ('222222222','Department B','Praceta Columbano Bordalo Pinheiro T 2745-258 Queluz');
