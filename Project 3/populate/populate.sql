@@ -116,13 +116,13 @@ INSERT INTO product VALUES ('10000008', 'Fonte de Alimentação', 'Fonte de Ener
 INSERT INTO product VALUES ('10000009', 'SSD de 500gb', 'Armazenamento SSD de tamanho 500gb', '120', ' 1212');
 INSERT INTO product VALUES ('10000010', '12Gb de RAM', '2 cartões de RAM que juntos fazem 12 GB', '200');
 
-INSERT INTO customer VALUES ('1', 'Adams', 'adams12345@gmail.com', '918138586', 'Rua Ribeiro dos Reis 2725-175 Mem Martins');
+INSERT INTO customer VALUES ('1', 'Adams', 'adams12345@gmail.com', '918138586', 'Rua Ribeiro dos Reis 2725-175 Algueirão-Mem Martins');
 INSERT INTO customer VALUES ('2', 'John', 'johnxina@gmail.com', '918134543', 'Rua João Chagas 1495-765 Oeiras');
 INSERT INTO customer VALUES ('3', 'Bob', 'bob12345@gmail.com', '923423452', 'Rua Combatentes do Ultramar 2670-515 Loures');
 INSERT INTO customer VALUES ('4', 'Steve', 'steve12345@gmail.com', '917123411', 'Rua Brito Capelo 4050-128 Porto');
 INSERT INTO customer VALUES ('5', 'Leon', 'leon1234@gmail.com', '919519439', 'Rua Conde de Valença 7470-120 Sousel');
 INSERT INTO customer VALUES ('6', 'Ashley', 'ashley1234@gmail.com', '918410660', 'Rua Manuel da SIlva Carolino 2460-197 Alcobaça');
-INSERT INTO customer VALUES ('7', 'Thomas', 'thomas1234@gmail.com', '921324777', 'Rua Helena Tavares 2725-059 Mem Martins');
+INSERT INTO customer VALUES ('7', 'Thomas', 'thomas1234@gmail.com', '921324777', 'Rua Helena Tavares 2725-059 Algueirão-Mem Martins');
 INSERT INTO customer VALUES ('8', 'Will', 'will1234@gmail.com', '911222111', 'Rua Fernando Peyroteo 2725-079 Algueirão-Mem Martins');
 INSERT INTO customer VALUES ('9', 'Tyler', 'tyler1234@gmail.com', '920988756', 'Praceta Diogo de Silves 2710-725 Sintra');
 INSERT INTO customer VALUES ('10', 'Drake', 'drake1234@gmail.com', '965888232', 'Avenida Raul Solnado 2710-204 Sintra');
