@@ -12,10 +12,10 @@ HAVING SUM(price * qty) >= ALL (
 
 ------- QUERY 2 -------
 SELECT DISTINCT e.name FROM employee e
-WHERE NOT EXISTS (
+WHERE EXISTS (
     SELECT DISTINCT o.date FROM orders o
     WHERE EXTRACT(YEAR FROM o.date) = 2022
-    AND NOT EXISTS (
+    AND EXISTS (
         SELECT p.order_no FROM process p
         WHERE p.ssn = e.ssn AND p.order_no = o.order_no
     )

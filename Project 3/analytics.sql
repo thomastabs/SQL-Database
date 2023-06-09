@@ -1,4 +1,4 @@
-SELECT city, month, day_of_month, day_of_week, SUM(qty) AS toqty, SUM(total_price) FROM product_sales
+SELECT city, month, day_of_month, day_of_week, SUM(qty) AS toqty, SUM(total_price) AS price FROM product_sales
 WHERE year = 2023
 GROUP BY
     GROUPING SETS((city),(month), (day_of_month), (day_of_week), ())
