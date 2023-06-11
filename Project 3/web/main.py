@@ -1,29 +1,11 @@
 #!/usr/bin/python3
 import psycopg2
 import cgi
-import re
-
-
-def is_phone_number(value):
-    # Define the pattern for a phone number
-    pattern = r'^\d{9}$'  # Assuming a phone number consists of exactly 9 digits
-
-    # Check if the value matches the pattern
-    if re.match(pattern, value):
-        return True
-    else:
-        return False
 
 
 def pay_an_order(form, cursor, connection):
     order_id = form.getvalue('order_id')
-    customer_num = form.getvalue('custumer_no')
-    if order_id is not int:
-        print('Order Number is not a full integer')
-        cursor.rollback()
-    if customer_num is not int:
-        print('Customer Number is not a full integer')
-        cursor.rollback()
+    customer_num = form.getvalue('customer_no')
 
     # Making SQL Query
     sql = "INSERT INTO pay VALUES(%(order_number), %(customer_number))", {'order_number': order_id,
@@ -36,9 +18,6 @@ def pay_an_order(form, cursor, connection):
 def modify_product_price(form, cursor, connection):
     product_id = form.getvalue('product_id_price')
     new_price = form.getvalue('new_price')
-    if new_price is not int:
-        print("<h1>New Price is not a full integer</h1>")
-        cursor.rollback()
 
     # Making SQL query to find a product and update its price
     sql = "SELECT * FROM product WHERE SKU = %(product_id)s", {'product_id': product_id}
@@ -47,7 +26,8 @@ def modify_product_price(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        cursor.rollback()
+        print('<p>Error found, terminating operation</p>')
+        return
 
     sql = "UPDATE product SET price = %(price)s WHERE SKU = %(product_id)s", {'price': new_price,
                                                                               'product_id': product_id}
@@ -69,7 +49,8 @@ def modify_product_description(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        cursor.rollback()
+        print('<p>Error found, terminating operation</p>')
+        return
 
     sql = "UPDATE product SET description = %(description)s WHERE SKU = %(product_id)s", {'description': new_descr,
                                                                                           'product_id': product_id}
@@ -90,7 +71,8 @@ def remove_product(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        cursor.rollback()
+        print('<p>Error found, terminating operation</p>')
+        return
 
     sql = "DELETE FROM product WHERE SKU = %(product_id)s", {'product_id': product_id}
     # Delete the product
@@ -102,9 +84,6 @@ def remove_product(form, cursor, connection):
 
 def remove_customer(form, cursor, connection):
     customer_id = form.getvalue('customer_id')
-    if customer_id is not int:
-        print("<h1>Customer ID is not a full integer</h1>")
-        cursor.rollback()
 
     # Making SQL query to find a product and delete it
     sql = "SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id}
@@ -113,7 +92,8 @@ def remove_customer(form, cursor, connection):
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        cursor.rollback()
+        print('<p>Error found, terminating operation</p>')
+        return
 
     sql = "DELETE FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id}
     # Delete the customer
@@ -134,14 +114,12 @@ def register_product(form, cursor, connection):
     product_descr = form.getvalue('product_description')
     product_price = form.getvalue('product_price')
     product_ean = form.getvalue('product_ean')
-    if not product_price.isdigit():
-        print("<h1>Product Price is not a digits sequence</h1>")
-        cursor.rollback()
     if product_ean is None:
         pass
     elif not product_ean.isdigit():
-        print("<h1>Product Price is not a digits sequence</h1>")
-        cursor.rollback()
+        print("<h1>Product EAN is not a numeric sequence</h1>")
+        print('<p>Error found, terminating operation</p>')
+        return
 
     # Making SQL Query
     sql = "INSERT INTO product VALUES(%(product_sku), %(product_name), %(product_description), %(product_price), " \
@@ -156,19 +134,14 @@ def register_product(form, cursor, connection):
 
 def register_customer(form, cursor, connection):
     customer_id = form.getvalue('customer_register_id')
-    if customer_id is not int:
-        print("<h1>Customer ID is not a full integer</h1>")
-        cursor.rollback()
     customer_name = form.getvalue('customer_register_name')
     if customer_name is not str:
         print("<h1>Customer Name should be only letters</h1>")
-        cursor.rollback()
+        print('<p>Error found, terminating operation</p>')
+        return
     # Idk how to verify this
     customer_email = form.getvalue('customer_register_email')
     customer_phone = form.getvalue('customer_register_phone')
-    if is_phone_number(customer_phone) is False:
-        print("<h1>Customer Phone number is not a phone number supported by the system</h1>")
-        cursor.rollback()
     # Idk how to verify this 100% correctly
     customer_address = form.getvalue('customer_register_address')
 
@@ -190,8 +163,6 @@ port = 5432
 password = 'Tomastab2003'
 db_name = ist_id
 
-# SUBSTITUIR OS ROLLBACKS POR PRINTS DE HTML A DZR QUE FALHOU
-
 connection = None
 dsn = 'host={} port={} user={} password={} dbname={}'.format(host, port, ist_id, password, db_name)
 
@@ -202,8 +173,6 @@ print('<head>')
 print('<title>Request Answer</title>')
 print('</head>')
 print('<body>')
-print('</body>')
-print('</html>')
 
 connection = None
 
@@ -251,3 +220,5 @@ finally:
     if connection is not None:
         connection.close()
 
+print('</body>')
+print('</html>')
