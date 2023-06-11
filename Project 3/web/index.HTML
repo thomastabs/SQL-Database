@@ -8,9 +8,9 @@
   <img src="orders-post.jpg" alt="image">
 
   <h2>Register and Remove Products</h2>
-  <form action="/main.py" method="post">
-     <label for="product_sku">Product SKU:</label>
-     <input type="text" id="product_sku" name="product_name" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
+  <form action="main.cgi" method="post">
+     <label for="product_register_sku">Product SKU:</label>
+     <input type="text" id="product_register_sku" name="product_register_sku" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
      <label for="product_name">Product Name:</label>
      <input type="text" id="product_name" name="product_name" maxlength="200" title="Please enter a Product Name with a maximum of 200 characters" required>
      <label for="product_description">Product Description:</label>
@@ -22,14 +22,14 @@
      <input type="submit" value="Register Product">
   </form>
 
-  <form action="/main.py" method="post">
-    <label for="product_id">Product SKU:</label>
-    <input type="text" id="product_id" name="product_id" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
+  <form action="main.cgi" method="post">
+    <label for="product_remove_sku">Product SKU:</label>
+    <input type="text" id="product_remove_sku" name="product_remove_sku" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
     <input type="submit" value="Remove Product">
   </form>
 
   <h2>Modify Product Prices and Descriptions</h2>
-  <form action="/main.py" method="post">
+  <form action="main.cgi" method="post">
     <label for="product_id_price">Product ID:</label>
     <input type="text" id="product_id_price" name="product_id_price" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
     <label for="new_price">New Price:</label>
@@ -37,7 +37,7 @@
     <input type="submit" value="Modify Price">
   </form>
 
-  <form action="/main.py" method="post">
+  <form action="main.cgi" method="post">
     <label for="product_id_description">Product ID:</label>
     <input type="text" id="product_id_description" name="product_id_description" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
     <label for="new_description">New Description:</label>
@@ -46,7 +46,7 @@
   </form>
 
   <h2>Register and Remove Customer</h2>
-  <form action="/main.py" method="post">
+  <form action="main.cgi" method="post">
     <label for="customer_register_id">Customer ID:</label>
     <input type="number" id="customer_register_id" name="customer_register_id" title="Please enter a Customer ID" required>
     <label for="customer_register_name">Customer Name</label>
@@ -60,16 +60,16 @@
     <input type="submit" value="Register Customer">
   </form>
 
-  <form action="/main.py" method="post">
-    <label for="customer_id">Customer ID:</label>
-    <input type="number" id="customer_id" name="customer_id" title="Please enter a Customer ID" required>
+  <form action="main.cgi" method="post">
+    <label for="customer_remove_id">Customer ID:</label>
+    <input type="number" id="customer_remove_id" name="customer_remove_id" title="Please enter a Customer ID" required>
     <input type="submit" value="Remove Customer">
   </form>
 
   <h2>Make an Order</h2>
-  <form action="/main.py" method="post">
-    <label for="order_no">Order ID:</label>
-    <input type="number" id="order_no" name="order_no" title="Please enter an Order ID" required>
+  <form action="main.cgi" method="post">
+    <label for="make_order_no">Order ID:</label>
+    <input type="number" id="make_order_no" name="make_order_no" title="Please enter an Order ID" required>
     <label for="client_id_order">Customer ID:</label>
     <input type="number" id="client_id_order" name="client_id_order" title="Please enter a Customer ID" required>
     <label for="date">Date:</label>
@@ -82,9 +82,9 @@
   </form>
 
   <h2>Pay an Order</h2>
-  <form action="/main.py" method="post">
-    <label for="order_id">Order ID:</label>
-    <input type="number" id="order_id" name="order_id" title="Please enter an Order ID" required>
+  <form action="main.cgi" method="post">
+    <label for="pay_order_no">Order ID:</label>
+    <input type="number" id="pay_order_no" name="pay_order_no" title="Please enter an Order ID" required>
     <label for="customer_no">Customer ID:</label>
     <input type="number" id="customer_no" name="customer_no" title="Please enter a Customer ID" required>
     <input type="submit" value="Pay">
