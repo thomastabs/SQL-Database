@@ -13,11 +13,24 @@ def pay_an_order(form, cursor, connection):
 
     if order is None:
         print("<h1>Error: Order with this ID does not exist</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
+
+    # Making SQL query to verify if an order with that order number exists
+    cursor.execute("SELECT * FROM pay WHERE order_no = %(order_no)s", {'order_no': order_id})
+    payed_order = cursor.fetchone()
+
+    if payed_order is not None:
+        print("<h1>Error: This order has already been payed</h1>")
+        print('<h2>Error found, terminating operation</h2>')
+        print(" <form action='index.HTML'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+
 
     # Making SQL query to verify if a customer with that customer number exists
     cursor.execute("SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_num})
@@ -25,7 +38,7 @@ def pay_an_order(form, cursor, connection):
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -52,7 +65,7 @@ def modify_product_price(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -79,7 +92,7 @@ def modify_product_description(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -106,7 +119,7 @@ def remove_product(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -131,7 +144,7 @@ def remove_customer(form, cursor, connection):
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -160,7 +173,7 @@ def make_an_order(form, cursor, connection):
 
     if order is not None:
         print("<h1>Error: Order with this ID already exists</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -172,7 +185,7 @@ def make_an_order(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -184,7 +197,7 @@ def make_an_order(form, cursor, connection):
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -215,7 +228,7 @@ def register_product(form, cursor, connection):
         pass
     elif not product_ean.isdigit():
         print("<h1>Product EAN is not a numeric sequence</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
@@ -239,15 +252,14 @@ def register_customer(form, cursor, connection):
     customer_name = form.getvalue('customer_register_name')
     if not isinstance(customer_name, str):
         print("<h1>Customer Name should be only letters</h1>")
-        print('<p>Error found, terminating operation</p>')
+        print('<h2>Error found, terminating operation</h2>')
         print(" <form action='index.HTML'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
-    # Idk how to verify this
+
     customer_email = form.getvalue('customer_register_email')
     customer_phone = form.getvalue('customer_register_phone')
-    # Idk how to verify this 100% correctly
     customer_address = form.getvalue('customer_register_address')
 
     # Making SQL Query
@@ -277,8 +289,10 @@ print("Content-type: text/html\n\n")
 print('<html>')
 print('<head>')
 print('<title>Request Answer</title>')
+print('<link rel="stylesheet" type="text/css" href="style.css">')
 print('</head>')
 print('<body>')
+print('<div class="container">')
 
 connection = None
 
@@ -291,14 +305,6 @@ try:
     cursor = connection.cursor()
 
     form = cgi.FieldStorage()
-
-    # Help for debug
-    print(len(form))
-    for field in form.keys():
-        value = form.getvalue(field)
-        print(f"Field: {field}")
-        print(f"Value: {value}")
-        print('\n')
 
     if any(field == 'product_register_sku' for field in form.keys()):
         register_product(form, cursor, connection)
@@ -330,5 +336,6 @@ finally:
     if connection is not None:
         connection.close()
 
+print("</div>")
 print('</body>')
 print('</html>')
