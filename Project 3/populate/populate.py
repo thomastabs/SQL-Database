@@ -115,7 +115,7 @@ def pays():
 
 
 if __name__ == "__main__":
-    file = open('../populate/populate.sql', 'w')
+    file = open('../populate.sql', 'w')
 
     copia_anexo_a()
     file.write('\n')
