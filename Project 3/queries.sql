@@ -11,7 +11,7 @@ HAVING SUM(price * qty) >= ALL (
 );
 
 ------- QUERY 2 -------
-SELECT e.name FROM employee e
+SELECT DISTINCT e.name FROM employee e
 WHERE EXISTS (
     SELECT DISTINCT o.date FROM orders o
     WHERE EXTRACT(YEAR FROM o.date) = 2022
