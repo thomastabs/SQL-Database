@@ -10,8 +10,6 @@ HAVING SUM(price * qty) >= ALL (
     GROUP BY cust_no
 );
 
-
-
 ------- QUERY 2 -------
 SELECT DISTINCT name FROM (employee e
     JOIN process p ON p.ssn = e.ssn
@@ -22,17 +20,6 @@ HAVING COUNT(DISTINCT date) = (
   SELECT COUNT(DISTINCT date)
   FROM orders NATURAL JOIN process
   WHERE EXTRACT(YEAR FROM date) = 2022
-);
-
-------- QUERY 2 -------
-SELECT DISTINCT e.name FROM employee e
-WHERE EXISTS (
-    SELECT DISTINCT o.date FROM orders o NATURAL JOIN process
-    WHERE EXTRACT(YEAR FROM o.date) = 2022
-    AND EXISTS (
-        SELECT p.order_no FROM process p
-        WHERE p.ssn = e.ssn AND p.order_no = o.order_no
-    )
 );
 
 ------- QUERY 3 -------
