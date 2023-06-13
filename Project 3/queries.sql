@@ -11,9 +11,8 @@ HAVING SUM(price * qty) >= ALL (
 );
 
 ------- QUERY 2 -------
-SELECT DISTINCT name FROM (employee e
-    JOIN process p ON p.ssn = e.ssn
-    NATURAL JOIN orders)
+SELECT DISTINCT name
+FROM employee e JOIN process p ON p.ssn = e.ssn NATURAL JOIN orders
 WHERE EXTRACT(YEAR FROM date) = 2022
 GROUP BY name
 HAVING COUNT(DISTINCT date) = (
