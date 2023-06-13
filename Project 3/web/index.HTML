@@ -31,6 +31,26 @@
     <input type="submit" value="Remove Product">
   </form>
 
+  <h2>Register Supplier</h2>
+  <form action="main.cgi" method="post">
+    <label for="supplier_tin_register">Supplier TIN:</label>
+    <input type="text" id="supplier_tin_register" name="supplier_tin_register" maxlength="20" title="Please enter a TIN code with a maximum of 20 characters" required>
+    <label for="supplier_register_name">Supplier Name:</label>
+    <input type="text" id="supplier_register_name" name="supplier_register_name" maxlength="200" title="Please enter a Supplier Name with a maximum of 200 characters" required>
+    <label for="supplier_register_address">Supplier Address</label>
+    <input type="text" id="supplier_register_address" name="supplier_register_address" maxlength="255" title="Please enter an address with a maximum of 255 characters">
+    <label for="supplier_product_sku">Product SKU:</label>
+    <input type="text" id="supplier_product_sku" name="supplier_product_sku" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
+    <input type="submit" value="Register Supplier">
+  </form>
+
+  <h2>Remove Suppliers</h2>
+  <form action="main.cgi" method="post">
+    <label for="supplier_tin_remove">Product SKU:</label>
+    <input type="text" id="supplier_tin_remove" name="supplier_tin_remove" maxlength="20" title="Please enter a TIN code with a maximum of 20 characters" required>
+    <input type="submit" value="Remove Supplier">
+  </form>
+
   <h2>Modify Product Prices</h2>
   <form action="main.cgi" method="post">
     <label for="product_id_price">Product ID:</label>
