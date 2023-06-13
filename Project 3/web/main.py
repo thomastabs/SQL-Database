@@ -32,7 +32,7 @@ def pay_an_order(form, cursor, connection):
         return
 
     # Making SQL Query
-    cursor.execute("INSERT INTO pay VALUES(%(order_number), %(customer_number))",
+    cursor.execute("INSERT INTO pay VALUES(%(order_number)s, %(customer_number)s)",
                    {'order_number': order_id,
                     'customer_number': customer_num})
 
@@ -148,7 +148,6 @@ def remove_customer(form, cursor, connection):
 
 
 def make_an_order(form, cursor, connection):
-    # Question 1: Should I also make a product_sku and qty field form for putting the order num in contain?
     order_id = form.getvalue('make_order_no')
     customer_id = form.getvalue('client_id_order')
     date = form.getvalue('date')
@@ -191,14 +190,14 @@ def make_an_order(form, cursor, connection):
         print(" </form>")
         return
 
-    connection.commit()
-
-
     # Now we can finally make an order, with the transaction method
-    cursor.execute("INSERT INTO orders VALUES(%(order_no)s, %(cust_no)s, %(date)s)",
-                   {'order_no': order_id, 'cust_no': customer_id, 'date': date})
-    cursor.execute("INSERT INTO contains VALUES(%(order_no)s, %(product_sku)s, %(quantity)s",
-                   {'order_no': order_id, 'product_sku': product_id, 'quantity': qty})
+    cursor.execute("START TRANSACTION;"
+                   "SET CONSTRAINTS ALL DEFERRED;"
+                   "INSERT INTO orders VALUES(%(order_no)s, %(cust_no)s, %(date)s);"
+                   "INSERT INTO contains VALUES(%(order_no)s, %(product_sku)s, %(quantity)s);"
+                   "COMMIT;",
+                   {'order_no': order_id, 'cust_no': customer_id,
+                    'date': date, 'quantity': qty, 'product_sku': product_id})
 
     connection.commit()
     print("<h1>Order made successfully</h1>")
