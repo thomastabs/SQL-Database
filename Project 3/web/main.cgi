@@ -301,7 +301,6 @@ try:
     connection = psycopg2.connect(dsn)
 
     connection.autocommit = False
-    print('<p>Connected</p>')
     cursor = connection.cursor()
 
     form = cgi.FieldStorage()
@@ -323,9 +322,8 @@ try:
     elif any(field == 'pay_order_no' for field in form.keys()):
         pay_an_order(form, cursor, connection)
     else:
-        print('<p>Unknown Operation</p>')
+        print('<h1>Unknown Operation</h1>')
 
-    print('<p>Operation finished</p>')
     cursor.close()
     connection.close()
 

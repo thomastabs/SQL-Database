@@ -1,0 +1,109 @@
+/* Global Styles */
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  background: url("background.jpg") no-repeat center center fixed;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+  background-size: cover;
+}
+
+.container h1 {
+  color: #4285f4; /* Google blue color for the title */
+  text-align: center;
+  margin: 0;
+  margin-top: 60px
+  margin-bottom: 15px;
+  font-size: 30px;
+}
+
+.container h2 {
+  color: #000; /* Black color for subtitles */
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-size: 20px;
+  width: 65%; /* Adjust the title width to match the form width */
+  margin: 0 auto; /* Center the title horizontally */
+}
+
+.container form {
+  margin-bottom: 40px;
+  width: 65%; /* Reduce the form width by half */
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+.container label {
+  display: block;
+  margin-top: 15px;
+  color: #000; /* Black color for labels */
+  font-size: 16px;
+}
+
+.container input[type="text"],
+.container input[type="number"],
+.container input[type="date"],
+.container input[type="email"],
+.container input[type="tel"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.container input[type="text"]:focus,
+.container input[type="number"]:focus,
+.container input[type="date"]:focus,
+.container input[type="email"]:focus,
+.container input[type="tel"]:focus {
+  border-color: #4285f4; /* Google blue color for input focus */
+  outline: none;
+}
+
+.container input[type="submit"] {
+  width: 50%; /* Reduce the button width by half */
+  padding: 10px;
+  background-color: #4285f4; /* Google blue color for the submit button */
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  margin-top: 20px; /* Customize the top spacing as desired */
+  margin-bottom: 60px; /* Customize the bottom spacing as desired */
+  margin-left: auto; /* Center the button horizontally */
+  margin-right: auto; /* Center the button horizontally */
+  transition: background-color 0.3s;
+}
+
+.container input[type="submit"]:hover {
+  background-color: #3367d6; /* Darker blue color on hover */
+}
+
+.container img {
+  display: block;
+  margin: 0 auto;
+  max-width: 65%;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 25px;
+  background-color: #ffffffe6;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 5px solid #ccc;
+}
+
+.container label {
+  margin-top: 10px;
+}
+
+.container input[type="submit"] {
+  margin-top: 20px;
+}
