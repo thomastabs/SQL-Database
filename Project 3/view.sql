@@ -16,7 +16,6 @@ JOIN pay py ON o.order_no = py.order_no
 JOIN product p ON c.SKU = p.SKU
 JOIN customer cu ON o.cust_no = cu.cust_no;
 
-SELECT * FROM product_sales
 
 
 
