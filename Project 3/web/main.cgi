@@ -7,13 +7,13 @@ from datetime import datetime
 def pay_an_order(form, cursor, connection):
     order_id = form.getvalue('pay_order_no')
     customer_id = form.getvalue('customer_no')
-    if order_id < 0:
+    if int(order_id) < 0:
         print("<h1>Order ID can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
-    if customer_id < 0:
+    if int(customer_id) < 0:
         print("<h1>Error: Customer ID can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
@@ -144,7 +144,7 @@ def remove_product(form, cursor, connection):
 
 def remove_customer(form, cursor, connection):
     customer_id = form.getvalue('customer_remove_id')
-    if customer_id < 0:
+    if int(customer_id) < 0:
         print("<h1>Error: Customer ID can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
@@ -202,19 +202,19 @@ def make_an_order(form, cursor, connection):
     date = form.getvalue('date')
     product_id = form.getvalue('product_order_sku')
     qty = form.getvalue('qty')
-    if customer_id < 0:
+    if int(customer_id) < 0:
         print("<h1>Error: Customer ID can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
-    if qty <= 0:
+    if int(qty) <= 0:
         print("<h1>Error: Quantity can't be negative or zero</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
-    if order_id < 0:
+    if int(order_id) < 0:
         print("<h1>Error: Order ID can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
@@ -295,7 +295,7 @@ def register_product(form, cursor, connection):
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
-    elif product_ean < 0:
+    elif int(product_ean) < 0:
         print("<h1>Product EAN can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
@@ -340,13 +340,7 @@ def register_product(form, cursor, connection):
 def register_customer(form, cursor, connection):
     customer_id = form.getvalue('customer_register_id')
     customer_name = form.getvalue('customer_register_name')
-    if not isinstance(customer_name, str):
-        print("<h1>Customer Name should be only letters</h1>")
-        print(" <form action='main_menu.html'>")
-        print("     <input type='submit' value='Go Back'>")
-        print(" </form>")
-        return
-    if customer_id < 0:
+    if int(customer_id) < 0:
         print("<h1>Error: Customer ID can't be negative</h1>")
         print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
@@ -398,13 +392,7 @@ def register_supplier(form, cursor, connection):
     supplier_name = form.getvalue('supplier_register_name')
     supplier_address = form.getvalue('supplier_register_address')
     supplier_product_sku = form.getvalue('supplier_product_sku')
-    if not isinstance(supplier_name, str):
-        print("<h1>Supplier Name should be only letters</h1>")
-        print(" <form action='main_menu.html'>")
-        print("     <input type='submit' value='Go Back'>")
-        print(" </form>")
-        return
-    
+
     # Making SQL query to verify if a product with that SKU code exists before creating a supplier
     cursor.execute("SELECT * FROM product WHERE SKU = %(product_sku)s", {'product_sku': supplier_product_sku})
     product = cursor.fetchone()
