@@ -1,11 +1,24 @@
 #!/usr/bin/python3
 import psycopg2
 import cgi
+from datetime import datetime
 
 
 def pay_an_order(form, cursor, connection):
     order_id = form.getvalue('pay_order_no')
-    customer_num = form.getvalue('customer_no')
+    customer_id = form.getvalue('customer_no')
+    if order_id < 0:
+        print("<h1>Order ID can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+    if customer_id < 0:
+        print("<h1>Error: Customer ID can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
 
     # Making SQL query to verify if an order with that order number exists
     cursor.execute("SELECT * FROM orders WHERE order_no = %(order_no)s", {'order_no': order_id})
@@ -13,7 +26,7 @@ def pay_an_order(form, cursor, connection):
 
     if order is None:
         print("<h1>Error: Order with this ID does not exist</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -24,19 +37,19 @@ def pay_an_order(form, cursor, connection):
 
     if paid_order is not None:
         print("<h1>Error: This order has already been payed</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
 
 
     # Making SQL query to verify if a customer with that customer number exists
-    cursor.execute("SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_num})
+    cursor.execute("SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
     customer = cursor.fetchone()
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -44,11 +57,11 @@ def pay_an_order(form, cursor, connection):
     # Making SQL Query
     cursor.execute("INSERT INTO pay VALUES(%(order_number)s, %(customer_number)s)",
                    {'order_number': order_id,
-                    'customer_number': customer_num})
+                    'customer_number': customer_id})
 
     connection.commit()
     print("<h1>Order paid successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -62,7 +75,7 @@ def modify_product_price(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -74,7 +87,7 @@ def modify_product_price(form, cursor, connection):
 
     connection.commit()
     print("<h1>Product price updated successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -88,7 +101,7 @@ def modify_product_description(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -100,7 +113,7 @@ def modify_product_description(form, cursor, connection):
 
     connection.commit()
     print("<h1>Product description updated successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -114,7 +127,7 @@ def remove_product(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -124,13 +137,19 @@ def remove_product(form, cursor, connection):
     connection.commit()
 
     print("<h1>Product deleted successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
 
 def remove_customer(form, cursor, connection):
     customer_id = form.getvalue('customer_remove_id')
+    if customer_id < 0:
+        print("<h1>Error: Customer ID can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
 
     # Making SQL query to find a customer and delete it
     cursor.execute("SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
@@ -138,7 +157,7 @@ def remove_customer(form, cursor, connection):
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -148,7 +167,7 @@ def remove_customer(form, cursor, connection):
     connection.commit()
 
     print("<h1>Customer deleted successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -162,7 +181,7 @@ def remove_supplier(form, cursor, connection):
 
     if supplier is None:
         print("<h1>Error: Supplier not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -172,7 +191,7 @@ def remove_supplier(form, cursor, connection):
     connection.commit()
 
     print("<h1>Supplier deleted successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -183,6 +202,35 @@ def make_an_order(form, cursor, connection):
     date = form.getvalue('date')
     product_id = form.getvalue('product_order_sku')
     qty = form.getvalue('qty')
+    if customer_id < 0:
+        print("<h1>Error: Customer ID can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+    if qty <= 0:
+        print("<h1>Error: Quantity can't be negative or zero</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+    if order_id < 0:
+        print("<h1>Error: Order ID can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+
+    # We have to verify if the date provided is not older than today's
+    today = datetime.today().date()
+    order_date = datetime.strptime(date, "%Y-%m-%d").date()
+#
+    if order_date < today:
+        print("<h1>Error: Date provided is older than today's date</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
 
     # Making SQL query to verify if an order with that order number exists
     cursor.execute("SELECT * FROM orders WHERE order_no = %(order_no)s", {'order_no': order_id})
@@ -190,7 +238,7 @@ def make_an_order(form, cursor, connection):
 
     if order is not None:
         print("<h1>Error: Order with this ID already exists</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -201,7 +249,7 @@ def make_an_order(form, cursor, connection):
 
     if product is None:
         print("<h1>Error: Product not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -212,7 +260,7 @@ def make_an_order(form, cursor, connection):
 
     if customer is None:
         print("<h1>Error: Customer not found</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -228,7 +276,7 @@ def make_an_order(form, cursor, connection):
 
     connection.commit()
     print("<h1>Order made successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -243,7 +291,13 @@ def register_product(form, cursor, connection):
         pass
     elif not product_ean.isdigit():
         print("<h1>Product EAN is not a numeric sequence</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+    elif product_ean < 0:
+        print("<h1>Product EAN can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -254,7 +308,7 @@ def register_product(form, cursor, connection):
 
     if product is not None:
         print("<h1>Error: Product with this ID already exists</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -265,7 +319,7 @@ def register_product(form, cursor, connection):
         product = cursor.fetchone()
         if product is not None:
             print("<h1>Error: Product with this EAN already exists</h1>")
-            print(" <form action='index.HTML'>")
+            print(" <form action='main_menu.html'>")
             print("     <input type='submit' value='Go Back'>")
             print(" </form>")
             return
@@ -278,7 +332,7 @@ def register_product(form, cursor, connection):
 
     connection.commit()
     print("<h1>Product registed successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -288,7 +342,13 @@ def register_customer(form, cursor, connection):
     customer_name = form.getvalue('customer_register_name')
     if not isinstance(customer_name, str):
         print("<h1>Customer Name should be only letters</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+    if customer_id < 0:
+        print("<h1>Error: Customer ID can't be negative</h1>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -304,7 +364,7 @@ def register_customer(form, cursor, connection):
 
     if customer is not None:
         print("<h1>Error: Customer with this ID already exists</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -315,7 +375,7 @@ def register_customer(form, cursor, connection):
 
     if customer is not None:
         print("<h1>Error: Customer with this email already exists</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -328,7 +388,7 @@ def register_customer(form, cursor, connection):
 
     connection.commit()
     print("<h1>Customer registed successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
@@ -338,14 +398,20 @@ def register_supplier(form, cursor, connection):
     supplier_name = form.getvalue('supplier_register_name')
     supplier_address = form.getvalue('supplier_register_address')
     supplier_product_sku = form.getvalue('supplier_product_sku')
-
+    if not isinstance(supplier_name, str):
+        print("<h1>Supplier Name should be only letters</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+    
     # Making SQL query to verify if a product with that SKU code exists before creating a supplier
     cursor.execute("SELECT * FROM product WHERE SKU = %(product_sku)s", {'product_sku': supplier_product_sku})
     product = cursor.fetchone()
 
     if product is None:
         print("<h1>Error: Product with this SKU does not exist</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -356,7 +422,7 @@ def register_supplier(form, cursor, connection):
 
     if supplier is not None:
         print("<h1>Error: Supplier with this ID already exists</h1>")
-        print(" <form action='index.HTML'>")
+        print(" <form action='main_menu.html'>")
         print("     <input type='submit' value='Go Back'>")
         print(" </form>")
         return
@@ -369,7 +435,7 @@ def register_supplier(form, cursor, connection):
 
     connection.commit()
     print("<h1>Supplier registed successfully</h1>")
-    print(" <form action='index.HTML'>")
+    print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
 
