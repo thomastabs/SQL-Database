@@ -16,7 +16,7 @@ print("Content-type: text/html\n\n")
 
 print('<html>')
 print('<head>')
-print('<title>Request Answer</title>')
+print('<title>Listing Tables</title>')
 print('<link rel="stylesheet" type="text/css" href="style.css">')
 print('<style>')
 print('table {')
@@ -32,9 +32,29 @@ print('}')
 print('th, td {')
 print('  padding: 8px;')
 print('}')
+print('.custom-button { ')
+print('  position: fixed;')
+print('  top: 10px;')
+print('  left: 10px;')
+print('  width: 7%;')
+print('  padding: 10px;')
+print('  background-color: #4285f4;')
+print('  color: #fff;')
+print('  border: none;')
+print('  border-radius: 6px;')
+print('  cursor: pointer;')
+print('  font-size: 16px;')
+print('  transition: background-color 0.3s;')
+print('}')
+print('.custom-button:hover { ')
+print('   background-color: #3367d6;')
+print(' }')
 print('</style>')
 print('</head>')
 print('<body>')
+print('<form action="main_menu" method="post">')
+print('<input type="submit" value="Go Back" class="custom-button">')
+print('  </form>')
 print('<div class="container">')
 
 connection = None
@@ -48,15 +68,19 @@ try:
 
     # Execute SQL queries to retrieve data from the tables
     cursor.execute(
-        "SELECT p.SKU, p.name AS product_name, p.description, p.price, s.TIN, s.name AS supplier_name FROM product p JOIN supplier s ON p.SKU = s.SKU")
-    products_suppliers = cursor.fetchall()
+        "SELECT * FROM product")
+    productss = cursor.fetchall()
+
+    cursor.execute(
+        "SELECT * FROM supplier")
+    supplierss = cursor.fetchall()
 
     cursor.execute(
         "SELECT o.order_no, o.cust_no, o.date, c.SKU AS product_sku, c.qty FROM orders o JOIN contains c ON o.order_no = c.order_no")
     orders_contains = cursor.fetchall()
 
     cursor.execute(
-        "SELECT p.order_no, p.cust_no FROM pay AS p")
+        "SELECT * FROM pay")
     paid_ordersss = cursor.fetchall()
 
     cursor.execute(
@@ -65,28 +89,45 @@ try:
 
 
     # List All Tables
-    print("<h1>Products joined with Suppliers</h1>")
+    print("<h1>Products</h1>")
     print("<table>")
     print("  <tr>")
     print("    <th>SKU</th>")
     print("    <th>Product Name</th>")
     print("    <th>Product Description</th>")
     print("    <th>Product Price</th>")
-    print("    <th>Supplier TIN</th>")
-    print("    <th>Supplier Name</th>")
+    print("    <th>EAN</th>")
     print("  </tr>")
-    for product in products_suppliers:
+    for product in productss:
         print("  <tr>")
         print(f"    <td>{product[0]}</td>")
         print(f"    <td>{product[1]}</td>")
         print(f"    <td>{product[2]}</td>")
         print(f"    <td>{product[3]}</td>")
         print(f"    <td>{product[4]}</td>")
-        print(f"    <td>{product[5]}</td>")
         print("  </tr>")
     print("</table>")
 
-    print("<h1>Orders joined with Contains</h1>")
+    print("<h1>Suppliers</h1>")
+    print("<table>")
+    print("  <tr>")
+    print("    <th>TIN</th>")
+    print("    <th>Supplier Name</th>")
+    print("    <th>Supplier Address</th>")
+    print("    <th>SKU</th>")
+    print("    <th>Date</th>")
+    print("  </tr>")
+    for supplier in supplierss:
+        print("  <tr>")
+        print(f"    <td>{supplier[0]}</td>")
+        print(f"    <td>{supplier[1]}</td>")
+        print(f"    <td>{supplier[2]}</td>")
+        print(f"    <td>{supplier[3]}</td>")
+        print(f"    <td>{supplier[4]}</td>")
+        print("  </tr>")
+    print("</table>")
+
+    print("<h1>Orders</h1>")
     print("<table>")
     print("  <tr>")
     print("    <th>Order No</th>")
@@ -115,9 +156,6 @@ try:
         print("  <tr>")
         print(f"    <td>{paid_order[0]}</td>")
         print(f"    <td>{paid_order[1]}</td>")
-        print(f"    <td>{paid_order[2]}</td>")
-        print(f"    <td>{paid_order[3]}</td>")
-        print(f"    <td>{paid_order[4]}</td>")
         print("  </tr>")
     print("</table>")
 
