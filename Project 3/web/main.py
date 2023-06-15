@@ -343,6 +343,12 @@ def register_product(form, cursor, connection):
     product_descr = form.getvalue('product_description')
     product_price = form.getvalue('product_price')
     product_ean = form.getvalue('product_ean')
+
+    supplier_tin = form.getvalue('supplier_tin_product')
+    supplier_name = form.getvalue('supplier_product_name')
+    supplier_address = form.getvalue('supplier_product_address')
+    supplier_date = form.getvalue('date_supplier')
+
     if product_ean is None:
         pass
     elif not product_ean.isdigit():
@@ -450,6 +456,7 @@ def register_supplier(form, cursor, connection):
     supplier_name = form.getvalue('supplier_register_name')
     supplier_address = form.getvalue('supplier_register_address')
     supplier_product_sku = form.getvalue('supplier_product_sku')
+    supplier_date = form.getvalue('date2')
 
     # Making SQL query to verify if a product with that SKU code exists before creating a supplier
     cursor.execute("SELECT * FROM product WHERE SKU = %(product_sku)s", {'product_sku': supplier_product_sku})
@@ -475,9 +482,9 @@ def register_supplier(form, cursor, connection):
 
     # Now that we have verified everything we can continue to create the supplier
     cursor.execute(
-        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s)",
+        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s), %(date)",
         {'tin': supplier_tin, 'supplier_name': supplier_name,
-         'supplier_address': supplier_address, 'product_sku': supplier_product_sku})
+         'supplier_address': supplier_address, 'product_sku': supplier_product_sku, 'date': supplier_date})
 
     connection.commit()
     print("<h1>Supplier registed successfully</h1>")
