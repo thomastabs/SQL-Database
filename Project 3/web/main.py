@@ -398,7 +398,7 @@ def register_product(form, cursor, connection):
 
     # Now that we verified everything, we can create the product
     cursor.execute(
-        "INSERT INTO product VALUES(%(product_sku)s, %(product_name)s, %(product_description)s,%(product_price)s, %(product_ean)s)",
+        "INSERT INTO product VALUES(%(product_sku)s, %(product_name)s, %(product_description)s, %(product_price)s, %(product_ean)s)",
         {'product_sku': product_sku, 'product_name': product_name,
          'product_description': product_descr, 'product_price': product_price,
          'product_ean': product_ean})
@@ -572,6 +572,6 @@ finally:
     if connection is not None:
         connection.close()
 
-print("</div>")
+print('</div>')
 print('</body>')
 print('</html>')
