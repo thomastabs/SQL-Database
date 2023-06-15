@@ -42,7 +42,6 @@ def pay_an_order(form, cursor, connection):
         print(" </form>")
         return
 
-
     # Making SQL query to verify if a customer with that customer number exists
     cursor.execute("SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
     customer = cursor.fetchone()
@@ -64,6 +63,7 @@ def pay_an_order(form, cursor, connection):
     print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
+
 
 def modify_product_price(form, cursor, connection):
     product_id = form.getvalue('product_id_price')
@@ -132,6 +132,9 @@ def remove_product(form, cursor, connection):
         print(" </form>")
         return
 
+    # Delete suppliers associated with the product
+    cursor.execute("DELETE FROM supplier WHERE SKU = %(product_id)s", {'product_id': product_id})
+
     # Delete the product
     cursor.execute("DELETE FROM product WHERE SKU = %(product_id)s", {'product_id': product_id})
     connection.commit()
@@ -162,7 +165,17 @@ def remove_customer(form, cursor, connection):
         print(" </form>")
         return
 
-    # Delete the customer
+    # First we delete the orders associated with the client, including the paid ones
+    cursor.execute("DELETE FROM pay WHERE cust_no =  %(customer_no)s", {'customer_no': customer_id})
+
+    # Then we delete the object in contains
+    cursor.execute("DELETE FROM contains WHERE order_no IN (SELECT order_no FROM 'orders' WHERE cust_no = %(customer_no)s",
+                   {'customer_number': customer_id})
+
+    # Finally we delete the order in orders
+    cursor.execute("DELETE FROM orders WHERE cust_no = %(customer_no)s", {'customer_number': customer_id})
+
+    # And then, delete the customer
     cursor.execute("DELETE FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
     connection.commit()
 
@@ -186,7 +199,10 @@ def remove_supplier(form, cursor, connection):
         print(" </form>")
         return
 
-    # Delete the customer
+    # Let's verify if the supplier is the only product's supplier, if so
+    # then we
+
+    # Delete the supplier
     cursor.execute("DELETE FROM supplier WHERE TIN = %(tin)s", {'tin': supplier_tin})
     connection.commit()
 

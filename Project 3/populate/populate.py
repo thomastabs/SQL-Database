@@ -89,7 +89,8 @@ def works():
 def suppliers():
     for line in open("suppliers.csv", "r"):
         supplier = line.strip().split(",")
-        ins = "INSERT INTO supplier VALUES ('{}','{}','{}');\n".format(supplier[0], supplier[1], supplier[2])
+        ins = "INSERT INTO supplier VALUES ('{}','{}','{}','{}', '{}');\n".format(supplier[0], supplier[1], supplier[2],
+                                                                                  supplier[3], supplier[4])
         file.write(ins)
 
 
