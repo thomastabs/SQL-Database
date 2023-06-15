@@ -18,6 +18,21 @@ print('<html>')
 print('<head>')
 print('<title>Request Answer</title>')
 print('<link rel="stylesheet" type="text/css" href="style.css">')
+print('<style>')
+print('table {')
+print('  width: 100%;')
+print('  border-collapse: collapse;')
+print('  margin-top: 20px;')
+print('  margin-bottom: 40px;')
+print('}')
+print('table, th, td {')
+print('  border: 1px solid black;')
+print('}')
+print('th, td {')
+print('  padding: 8px;')
+print('  text-align: center;')
+print('}')
+print('</style>')
 print('</head>')
 print('<body>')
 print('<div class="container">')
@@ -37,12 +52,17 @@ try:
     products_suppliers = cursor.fetchall()
 
     cursor.execute(
-        "SELECT o.order_no, o.cust_no, o.date, c.name AS customer_name, c.email FROM orders o JOIN customer c ON o.cust_no = c.cust_no")
-    orders_customers = cursor.fetchall()
+        "SELECT o.order_no, o.cust_no, o.date, c.SKU AS product_sku, c.qty FROM orders o JOIN contains c ON o.order_no = c.order_no")
+    orders_contains = cursor.fetchall()
 
     cursor.execute(
-        "SELECT o.order_no, o.cust_no, o.date, c.name AS customer_name, c.email FROM orders o JOIN customer c ON o.cust_no = c.cust_no JOIN pay p ON o.order_no = p.order_no")
-    paid_orders_customers = cursor.fetchall()
+        "SELECT p.order_no, p.cust_no FROM pay AS p")
+    paid_ordersss = cursor.fetchall()
+
+    cursor.execute(
+        "SELECT * FROM customer")
+    customersss = cursor.fetchall()
+
 
     # List All Tables
     print("<h1>Products joined with Suppliers</h1>")
@@ -72,10 +92,10 @@ try:
     print("    <th>Order No</th>")
     print("    <th>Customer No</th>")
     print("    <th>Date</th>")
-    print("    <th>Customer Name</th>")
-    print("    <th>Customer Email</th>")
+    print("    <th>SKU</th>")
+    print("    <th>Quantity</th>")
     print("  </tr>")
-    for order in orders_customers:
+    for order in orders_contains:
         print("  <tr>")
         print(f"    <td>{order[0]}</td>")
         print(f"    <td>{order[1]}</td>")
@@ -85,16 +105,13 @@ try:
         print("  </tr>")
     print("</table>")
 
-    print("<h1>Paid Orders and Customers</h1>")
+    print("<h1>Paid Orders</h1>")
     print("<table>")
     print("  <tr>")
     print("    <th>Order No</th>")
     print("    <th>Customer No</th>")
-    print("    <th>Date</th>")
-    print("    <th>Customer Name</th>")
-    print("    <th>Customer Email</th>")
     print("  </tr>")
-    for paid_order in paid_orders_customers:
+    for paid_order in paid_ordersss:
         print("  <tr>")
         print(f"    <td>{paid_order[0]}</td>")
         print(f"    <td>{paid_order[1]}</td>")
@@ -103,9 +120,26 @@ try:
         print(f"    <td>{paid_order[4]}</td>")
         print("  </tr>")
     print("</table>")
-    print('</div>')
-    print("</body>")
-    print("</html>")
+
+    print("<h1>Customers</h1>")
+    print("<table>")
+    print("  <tr>")
+    print("    <th>Customer No</th>")
+    print("    <th>Customer Name</th>")
+    print("    <th>Customer Email</th>")
+    print("    <th>Customer Phone</th>")
+    print("    <th>Customer Address</th>")
+    print("  </tr>")
+    for customer in customersss:
+        print("  <tr>")
+        print(f"    <td>{customer[0]}</td>")
+        print(f"    <td>{customer[1]}</td>")
+        print(f"    <td>{customer[2]}</td>")
+        print(f"    <td>{customer[3]}</td>")
+        print(f"    <td>{customer[4]}</td>")
+        print("  </tr>")
+    print("</table>")
+
     cursor.close()
     connection.close()
 
