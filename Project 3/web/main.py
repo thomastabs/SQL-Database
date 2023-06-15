@@ -386,6 +386,16 @@ def register_product(form, cursor, connection):
             print(" </form>")
             return
 
+    # Making SQL query to verify if a supplier with that tin exists before creating a supplier to that product
+    cursor.execute("SELECT * FROM supplier WHERE TIN = %(tin)s", {'tin': supplier_tin})
+    supplier = cursor.fetchone()
+    if supplier is not None:
+        print("<h1>Error: Supplier with this TIN already exists</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+        return
+
     # Now that we verified everything, we can create the product
     cursor.execute(
         "INSERT INTO product VALUES(%(product_sku)s, %(product_name)s, %(product_description)s,%(product_price)s, %(product_ean)s)",
@@ -393,8 +403,14 @@ def register_product(form, cursor, connection):
          'product_description': product_descr, 'product_price': product_price,
          'product_ean': product_ean})
 
+    # Next we create the supplier
+    cursor.execute(
+        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s), %(date)s",
+        {'tin': supplier_tin, 'supplier_name': supplier_name,
+         'supplier_address': supplier_address, 'product_sku': product_sku, 'date': supplier_date})
+
     connection.commit()
-    print("<h1>Product registed successfully</h1>")
+    print("<h1>Product and Supplier registed successfully</h1>")
     print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
@@ -437,7 +453,7 @@ def register_customer(form, cursor, connection):
         print(" </form>")
         return
 
-    # After verifying everything we can finnaly create a customer
+    # After verifying everything we can finally create a customer
     cursor.execute(
         "INSERT INTO customer VALUES(%(customer_id)s, %(customer_name)s, %(customer_email)s, %(customer_phone)s, %(customer_address)s)",
         {'customer_id': customer_id, 'customer_name': customer_name,
@@ -482,7 +498,7 @@ def register_supplier(form, cursor, connection):
 
     # Now that we have verified everything we can continue to create the supplier
     cursor.execute(
-        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s), %(date)",
+        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s), %(date)s",
         {'tin': supplier_tin, 'supplier_name': supplier_name,
          'supplier_address': supplier_address, 'product_sku': supplier_product_sku, 'date': supplier_date})
 
