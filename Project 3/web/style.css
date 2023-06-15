@@ -1,6 +1,8 @@
+@import url("hk_grotesk_regular_legacy/stylesheet.css");
+
 /* Global Styles */
 body {
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: "hk grotesk regular legacy";
   background: url("background.jpg") no-repeat center center fixed;
   background-color: #f9f9f9;
   margin: 0;
@@ -14,7 +16,8 @@ body {
   margin: 0;
   margin-top: 60px
   margin-bottom: 15px;
-  font-size: 30px;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .container h2 {
@@ -47,7 +50,7 @@ body {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 6px;
   font-size: 16px;
   transition: border-color 0.3s;
 }
@@ -67,7 +70,7 @@ body {
   background-color: #4285f4; /* Google blue color for the submit button */
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
   display: block;
@@ -88,6 +91,7 @@ body {
   max-width: 65%;
   margin-top: 30px;
   margin-bottom: 50px;
+  border-radius: 3px;
 }
 
 .container {
