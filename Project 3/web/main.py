@@ -42,7 +42,6 @@ def pay_an_order(form, cursor, connection):
         print(" </form>")
         return
 
-
     # Making SQL query to verify if a customer with that customer number exists
     cursor.execute("SELECT * FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
     customer = cursor.fetchone()
@@ -64,6 +63,7 @@ def pay_an_order(form, cursor, connection):
     print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
+
 
 def modify_product_price(form, cursor, connection):
     product_id = form.getvalue('product_id_price')
@@ -90,6 +90,7 @@ def modify_product_price(form, cursor, connection):
     print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
+
 
 def modify_product_description(form, cursor, connection):
     product_id = form.getvalue('product_id_description')
@@ -132,7 +133,21 @@ def remove_product(form, cursor, connection):
         print(" </form>")
         return
 
-    # Delete the product
+    # Delete suppliers associated with the product
+    cursor.execute("DELETE FROM supplier WHERE SKU = %(product_id)s", {'product_id': product_id})
+
+    # Delete paid orders associated with that product
+    cursor.execute("DELETE FROM pay WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+                   {'product_id': product_id})
+
+    # Deleting the orders
+    cursor.execute("DELETE FROM orders WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+                   {'product_id': product_id})
+
+    # Deleting contains
+    cursor.execute("DELETE FROM contains WHERE SKU = %(product_id)s", {'product_id': product_id})
+
+    # And finally, delete the product
     cursor.execute("DELETE FROM product WHERE SKU = %(product_id)s", {'product_id': product_id})
     connection.commit()
 
@@ -162,7 +177,18 @@ def remove_customer(form, cursor, connection):
         print(" </form>")
         return
 
-    # Delete the customer
+    # First we delete the orders associated with the client, including the paid ones
+    cursor.execute("DELETE FROM pay WHERE cust_no =  %(customer_no)s", {'customer_no': customer_id})
+
+    # Then we delete the object in contains
+    cursor.execute(
+        "DELETE FROM contains WHERE order_no IN (SELECT order_no FROM 'orders' WHERE cust_no = %(customer_no)s",
+        {'customer_number': customer_id})
+
+    # Finally we delete the order in orders
+    cursor.execute("DELETE FROM orders WHERE cust_no = %(customer_no)s", {'customer_number': customer_id})
+
+    # And then, delete the customer
     cursor.execute("DELETE FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
     connection.commit()
 
@@ -186,14 +212,44 @@ def remove_supplier(form, cursor, connection):
         print(" </form>")
         return
 
-    # Delete the customer
-    cursor.execute("DELETE FROM supplier WHERE TIN = %(tin)s", {'tin': supplier_tin})
-    connection.commit()
+    # Let's verify if the supplier is the only product's supplier, if so
+    # then we erase the product associated to it
+    product_id = supplier[3]
+    cursor.execute("SELECT * FROM supplier WHERE SKU = %(sku)s", {'sku': product_id})
+    suppliers_with_same_sku = len(cursor.fetchall())
 
-    print("<h1>Supplier deleted successfully</h1>")
-    print(" <form action='main_menu.html'>")
-    print("     <input type='submit' value='Go Back'>")
-    print(" </form>")
+    if suppliers_with_same_sku == 1:
+        cursor.execute("DELETE FROM supplier WHERE TIN = %(tin)s", {'tin': supplier_tin})
+
+        # Delete paid orders associated with the product provided by the supplier
+        cursor.execute("DELETE FROM pay WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+                       {'product_id': product_id})
+
+        # Deleting the orders
+        cursor.execute("DELETE FROM orders WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+                       {'product_id': product_id})
+
+        # Deleting contains
+        cursor.execute("DELETE FROM contains WHERE SKU = %(product_id)s", {'product_id': product_id})
+
+        # And finally delete product associated with the supplier
+        cursor.execute("DELETE FROM product WHERE SKU = %(product_id)s", {'product_id': product_id})
+
+        connection.commit()
+        print("<h1>Supplier and Product associated deleted successfully</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
+
+    else:
+        # Delete the supplier
+        cursor.execute("DELETE FROM supplier WHERE TIN = %(tin)s", {'tin': supplier_tin})
+        connection.commit()
+
+        print("<h1>Supplier deleted successfully</h1>")
+        print(" <form action='main_menu.html'>")
+        print("     <input type='submit' value='Go Back'>")
+        print(" </form>")
 
 
 def make_an_order(form, cursor, connection):
@@ -224,7 +280,7 @@ def make_an_order(form, cursor, connection):
     # We have to verify if the date provided is not older than today's
     today = datetime.today().date()
     order_date = datetime.strptime(date, "%Y-%m-%d").date()
-#
+    #
     if order_date < today:
         print("<h1>Error: Date provided is older than today's date</h1>")
         print(" <form action='main_menu.html'>")
@@ -325,10 +381,11 @@ def register_product(form, cursor, connection):
             return
 
     # Now that we verified everything, we can create the product
-    cursor.execute("INSERT INTO product VALUES(%(product_sku)s, %(product_name)s, %(product_description)s,%(product_price)s, %(product_ean)s)",
-                   {'product_sku': product_sku, 'product_name': product_name,
-                    'product_description': product_descr, 'product_price': product_price,
-                    'product_ean': product_ean})
+    cursor.execute(
+        "INSERT INTO product VALUES(%(product_sku)s, %(product_name)s, %(product_description)s,%(product_price)s, %(product_ean)s)",
+        {'product_sku': product_sku, 'product_name': product_name,
+         'product_description': product_descr, 'product_price': product_price,
+         'product_ean': product_ean})
 
     connection.commit()
     print("<h1>Product registed successfully</h1>")
@@ -375,10 +432,11 @@ def register_customer(form, cursor, connection):
         return
 
     # After verifying everything we can finnaly create a customer
-    cursor.execute("INSERT INTO customer VALUES(%(customer_id)s, %(customer_name)s, %(customer_email)s, %(customer_phone)s, %(customer_address)s)",
-                   {'customer_id': customer_id, 'customer_name': customer_name,
-                    'customer_email': customer_email, 'customer_phone': customer_phone,
-                    'customer_address': customer_address})
+    cursor.execute(
+        "INSERT INTO customer VALUES(%(customer_id)s, %(customer_name)s, %(customer_email)s, %(customer_phone)s, %(customer_address)s)",
+        {'customer_id': customer_id, 'customer_name': customer_name,
+         'customer_email': customer_email, 'customer_phone': customer_phone,
+         'customer_address': customer_address})
 
     connection.commit()
     print("<h1>Customer registed successfully</h1>")

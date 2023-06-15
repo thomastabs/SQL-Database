@@ -9,7 +9,7 @@
   <img src="Logo.png" alt="Logo">
   <img src="orders-post.jpg" alt="image">
 
-  <h2>Register Products</h2>
+  <h2>Register Products and a Supplier</h2>
   <form action="main.cgi" method="post">
      <label for="product_register_sku">Product SKU:</label>
      <input type="text" id="product_register_sku" name="product_register_sku" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
@@ -22,6 +22,7 @@
      <label for="product_ean">Product EAN:</label>
      <input type="number" id="product_ean" name="product_ean" pattern="\d{1,13}" title="Please enter a numeric value with a maximum of 13 digits">
      <input type="submit" value="Register Product">
+
   </form>
 
   <h2>Remove Products</h2>
@@ -41,6 +42,8 @@
     <input type="text" id="supplier_register_address" name="supplier_register_address" maxlength="255" title="Please enter an address with a maximum of 255 characters">
     <label for="supplier_product_sku">Product SKU:</label>
     <input type="text" id="supplier_product_sku" name="supplier_product_sku" maxlength="25" title="Please enter a SKU code with a maximum of 25 characters" required>
+    <label for="date2">Date:</label>
+    <input type="date" id="date2" name="date2" title="Please enter a date">
     <input type="submit" value="Register Supplier">
   </form>
 
@@ -78,7 +81,7 @@
     <label for="customer_register_email">Customer Email</label>
     <input type="email" id="customer_register_email" name="customer_register_email" maxlength="254" title="Please enter an email with a maximum of 254 characters" required>
     <label for="customer_register_phone">Customer Phone</label>
-    <input type="tel" id="customer_register_phone" name="customer_register_phone" pattern="[0-9]{9}" title="Please enter a phone number with 9 digits only">
+    <input type="tel" id="customer_register_phone" name="customer_register_phone" pattern="[0-15]{15}" title="Please enter a phone number with 15 digits only">
     <label for="customer_register_address">Customer Address</label>
     <input type="text" id="customer_register_address" name="customer_register_address" maxlength="255" title="Please enter an address with a maximum of 255 characters">
     <input type="submit" value="Register Customer">
