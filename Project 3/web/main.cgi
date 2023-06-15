@@ -137,11 +137,11 @@ def remove_product(form, cursor, connection):
     cursor.execute("DELETE FROM supplier WHERE SKU = %(product_id)s", {'product_id': product_id})
 
     # Delete paid orders associated with that product
-    cursor.execute("DELETE FROM pay WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+    cursor.execute("DELETE FROM pay WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s)",
                    {'product_id': product_id})
 
     # Deleting the orders
-    cursor.execute("DELETE FROM orders WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+    cursor.execute("DELETE FROM orders WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s)",
                    {'product_id': product_id})
 
     # Deleting contains
@@ -151,7 +151,7 @@ def remove_product(form, cursor, connection):
     cursor.execute("DELETE FROM product WHERE SKU = %(product_id)s", {'product_id': product_id})
     connection.commit()
 
-    print("<h1>Product deleted successfully</h1>")
+    print("<h1>Product and Suppliers associated deleted successfully</h1>")
     print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
@@ -182,17 +182,17 @@ def remove_customer(form, cursor, connection):
 
     # Then we delete the object in contains
     cursor.execute(
-        "DELETE FROM contains WHERE order_no IN (SELECT order_no FROM 'orders' WHERE cust_no = %(customer_no)s",
-        {'customer_number': customer_id})
+        "DELETE FROM contains WHERE order_no IN (SELECT order_no FROM orders WHERE cust_no = %(customer_no)s)",
+        {'customer_no': customer_id})
 
     # Finally we delete the order in orders
-    cursor.execute("DELETE FROM orders WHERE cust_no = %(customer_no)s", {'customer_number': customer_id})
+    cursor.execute("DELETE FROM orders WHERE cust_no = %(customer_no)s", {'customer_no': customer_id})
 
     # And then, delete the customer
-    cursor.execute("DELETE FROM customer WHERE cust_no = %(customer_number)s", {'customer_number': customer_id})
+    cursor.execute("DELETE FROM customer WHERE cust_no = %(customer_no)s", {'customer_no': customer_id})
     connection.commit()
 
-    print("<h1>Customer deleted successfully</h1>")
+    print("<h1>Customer and Orders associated deleted successfully</h1>")
     print(" <form action='main_menu.html'>")
     print("     <input type='submit' value='Go Back'>")
     print(" </form>")
@@ -222,11 +222,11 @@ def remove_supplier(form, cursor, connection):
         cursor.execute("DELETE FROM supplier WHERE TIN = %(tin)s", {'tin': supplier_tin})
 
         # Delete paid orders associated with the product provided by the supplier
-        cursor.execute("DELETE FROM pay WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+        cursor.execute("DELETE FROM pay WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s)",
                        {'product_id': product_id})
 
         # Deleting the orders
-        cursor.execute("DELETE FROM orders WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s",
+        cursor.execute("DELETE FROM orders WHERE order_no IN (SELECT order_no FROM contains WHERE SKU = %(product_id)s)",
                        {'product_id': product_id})
 
         # Deleting contains
@@ -405,7 +405,7 @@ def register_product(form, cursor, connection):
 
     # Next we create the supplier
     cursor.execute(
-        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s), %(date)s",
+        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s, %(date)s)",
         {'tin': supplier_tin, 'supplier_name': supplier_name,
          'supplier_address': supplier_address, 'product_sku': product_sku, 'date': supplier_date})
 
@@ -468,7 +468,7 @@ def register_customer(form, cursor, connection):
 
 
 def register_supplier(form, cursor, connection):
-    supplier_tin = form.getvalue('supplier_register_tin')
+    supplier_tin = form.getvalue('supplier_tin_register')
     supplier_name = form.getvalue('supplier_register_name')
     supplier_address = form.getvalue('supplier_register_address')
     supplier_product_sku = form.getvalue('supplier_product_sku')
@@ -498,7 +498,7 @@ def register_supplier(form, cursor, connection):
 
     # Now that we have verified everything we can continue to create the supplier
     cursor.execute(
-        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s), %(date)s",
+        "INSERT INTO supplier VALUES(%(tin)s, %(supplier_name)s, %(supplier_address)s, %(product_sku)s, %(date)s)",
         {'tin': supplier_tin, 'supplier_name': supplier_name,
          'supplier_address': supplier_address, 'product_sku': supplier_product_sku, 'date': supplier_date})
 
