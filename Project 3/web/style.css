@@ -11,7 +11,7 @@ body {
 }
 
 .container h1 {
-  color: #4285f4; /* Google blue color for the title */
+  color: #4285f4;
   text-align: center;
   margin: 0;
   margin-top: 60px
@@ -21,24 +21,24 @@ body {
 }
 
 .container h2 {
-  color: #000; /* Black color for subtitles */
+  color: #000;
   margin-top: 50px;
   margin-bottom: 30px;
   font-size: 20px;
-  width: 65%; /* Adjust the title width to match the form width */
-  margin: 0 auto; /* Center the title horizontally */
+  width: 65%;
+  margin: 0 auto;
 }
 
 .container form {
   margin-bottom: 40px;
-  width: 65%; /* Reduce the form width by half */
-  margin: 0 auto; /* Center the form horizontally */
+  width: 65%;
+  margin: 0 auto;
 }
 
 .container label {
   display: block;
   margin-top: 15px;
-  color: #000; /* Black color for labels */
+  color: #000;
   font-size: 16px;
 }
 
@@ -60,29 +60,29 @@ body {
 .container input[type="date"]:focus,
 .container input[type="email"]:focus,
 .container input[type="tel"]:focus {
-  border-color: #4285f4; /* Google blue color for input focus */
+  border-color: #4285f4;
   outline: none;
 }
 
 .container input[type="submit"] {
-  width: 50%; /* Reduce the button width by half */
+  width: 50%;
   padding: 10px;
-  background-color: #4285f4; /* Google blue color for the submit button */
+  background-color: #4285f4;
   color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
   display: block;
-  margin-top: 20px; /* Customize the top spacing as desired */
-  margin-bottom: 60px; /* Customize the bottom spacing as desired */
-  margin-left: auto; /* Center the button horizontally */
-  margin-right: auto; /* Center the button horizontally */
+  margin-top: 20px;
+  margin-bottom: 60px;
+  margin-left: auto;
+  margin-right: auto;
   transition: background-color 0.3s;
 }
 
 .container input[type="submit"]:hover {
-  background-color: #3367d6; /* Darker blue color on hover */
+  background-color: #3367d6; 
 }
 
 .container img {
